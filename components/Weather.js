@@ -33,15 +33,15 @@ const months = [
   'ноября',
   'декабря'
 ]
-const date = new Date();
-const weekday = weekdays[date.getDay()];
-const day = date.getDate();
-const month = months[date.getMonth()];
 
 export default (props) => {
   if (!props.temp) {
     return null
   }
+  const date = new Date();
+  const weekday = weekdays[date.getDay()];
+  const day = date.getDate();
+  const month = months[date.getMonth()];
   return (
     <section>
       <div>
