@@ -1,8 +1,8 @@
 import Head from 'next/head'
 
-export default () => (
+export default ({ title = 'Это закрытый аккаунт.' }) => (
   <Head>
-    <title>Александр Мансуров</title>
+    <title>{title}</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <style>{`
       * {
