@@ -35,7 +35,7 @@ const months = [
 ]
 
 export default (props) => {
-  if (!props.temp) {
+  if (typeof props.temp === undefined) {
     return null
   }
   const date = new Date();
