@@ -1,3 +1,3 @@
 module.exports = {
-  'APOLLO_URI': process.env.APOLLO_URI
+  'WEATHER_API_KEY': process.env.WEATHER_API_KEY
 }

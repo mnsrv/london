@@ -1,39 +1,27 @@
-import React, { Component } from 'react'
-import { withApollo, compose } from 'react-apollo'
+import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 
-import withData from '../lib/withData'
-import checkLoggedIn from '../lib/checkLoggedIn'
-import App from '../components/App'
-import Main from '../components/Main'
+import Layout from '../components/Layout'
+import Weather from '../components/Weather'
 
-class Index extends Component {
-  static async getInitialProps (context, apolloClient) {
-    const { loggedInUser } = await checkLoggedIn(context, apolloClient)
-    return { loggedInUser }
+const Index = (props) => (
+  <Layout>
+    <Weather temp={props.temp} />
+  </Layout>
+)
+
+Index.getInitialProps = async function() {
+  const city = 'Moscow'
+  if (!WEATHER_API_KEY) {
+    return false
   }
+  const appid = WEATHER_API_KEY
+  const res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${appid}`)
+  const data = await res.json()
 
-  constructor() {
-    super()
-
-    this.state = {
-      showForm: false
-    }
+  return {
+    temp: data.main.temp
   }
+}
 
-  render () {
-    const { loggedInUser, client } = this.props
-    return (
-      <App client={client} loggedInUser={loggedInUser} title="главная">
-        {loggedInUser.user ? <Main /> : <div><h1>Это закрытый аккаунт.</h1><p><Link href="/signin"><a>Подпишитесь</a></Link> на этот аккаунт, чтобы смотреть публикуемые здесь фото и видео.</p></div>}
-      </App>
-    )
-  }
-};
-
-export default compose(
-  // withData gives us server-side graphql queries before rendering
-  withData,
-  // withApollo exposes `this.props.client` used when logging out
-  withApollo
-)(Index)
+export default Index
