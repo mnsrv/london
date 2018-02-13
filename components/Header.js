@@ -4,11 +4,14 @@ const rowStyle = {
   display: 'flex',
   marginBottom: 40
 }
+const textStyle = {
+  color: 'white'
+}
 
 export default () => (
   <div style={rowStyle}>
     <Emoji>👨🏻‍💻</Emoji>
-    <div>
+    <div style={textStyle}>
       <h1>Александр Мансуров</h1>
       <p>Фронтенд разработчик в&nbsp;Рокетбанке&nbsp;🚀</p>
     </div>

@@ -11,7 +11,8 @@ export default () => (
       body {
         font-family: Helvetica Neue,Arial,sans-serif;
         margin: 0;
-        background-color: #fafafa;
+        background-color: rgb(43,113,183);
+        background-image: url(static/net.png);
       }
     `}</style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112751787-1"></script>
