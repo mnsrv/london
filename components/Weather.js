@@ -10,15 +10,6 @@ const tempStyle = {
   letterSpacing: -0.68
 }
 
-const weekdays = [
-  'Воскресенье',
-  'Понедельник',
-  'Вторник',
-  'Среда',
-  'Четверг',
-  'Пятница',
-  'Суббота'
-]
 const months = [
   'января',
   'февраля',
@@ -35,23 +26,26 @@ const months = [
 ]
 
 export default (props) => {
-  if (typeof props.temp === undefined) {
+  if (typeof props.temperature == null) {
     return null
   }
-  const date = new Date();
-  const weekday = weekdays[date.getDay()];
-  const day = date.getDate();
-  const month = months[date.getMonth()];
+  const date = new Date()
+  const day = date.getDate()
+  const month = months[date.getMonth()]
+  const city = 'Москва'
+  const dayString = `${day} ${month}`
+  const tempString = `${Math.round(props.temperature)}°`
+
   return (
     <section>
       <div>
-        <div style={weekDayStyle}>{weekday}</div>
-        <div>{day} {month}</div>
+        <div style={weekDayStyle}>{city}</div>
+        <div>{dayString}</div>
       </div>
-      <div style={tempStyle}>{Math.round(props.temp)}°</div>
+      <div style={tempStyle}>{tempString}</div>
         <style jsx>{`
           section {
-            width: 270px;
+            width: 260px;
             background-color: white;
             box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
             border-radius: 10px;

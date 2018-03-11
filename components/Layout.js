@@ -9,7 +9,7 @@ const Layout = (props) => (
     <style jsx>{`
       div { padding: 60px }
       @media (max-width: 414px) {
-        div { padding: 10px }
+        div { padding: 20px }
       }
    `}</style>
   </div>
