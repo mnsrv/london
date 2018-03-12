@@ -14,7 +14,7 @@ const MoviesPage = (props) => {
 }
 
 export const getMovies = async function() {
-  const res = await fetch(`http://api.mansurov.me/movies`)
+  const res = await fetch(`https://api.mansurov.me/movies`)
   const data = await res.json()
 
   return data.data.reverse()

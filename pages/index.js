@@ -22,7 +22,7 @@ const Index = (props) => {
 }
 
 const getWeather = async function() {
-  const res = await fetch(`http://api.mansurov.me/weather`)
+  const res = await fetch(`https://api.mansurov.me/weather`)
   const data = await res.json()
 
   return data.temperature
