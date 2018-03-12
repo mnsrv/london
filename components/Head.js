@@ -34,7 +34,7 @@ export default () => (
           max-width:50rem;
           margin:0 auto; }
       body header{
-          margin-bottom:3.5em; }
+          margin-bottom:2em; }
       body header h1{
           margin:0;
           font-size:1.5em; }

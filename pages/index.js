@@ -1,23 +1,10 @@
 import fetch from 'isomorphic-unfetch'
-import Link from 'next/link'
 
+import { getMovies } from './movies'
 import Layout from '../components/Layout'
 import Weather from '../components/Weather'
-
-const months = [
-  'января',
-  'февраля',
-  'марта',
-  'апреля',
-  'мая',
-  'июня',
-  'июля',
-  'августа',
-  'сентября',
-  'октября',
-  'ноября',
-  'декабря'
-]
+import LastMovie from '../components/LastMovie'
+import { months } from '../utils/date'
 
 const Index = (props) => {
   const date = new Date()
@@ -27,20 +14,27 @@ const Index = (props) => {
 
   return (
     <Layout>
-      <article>
-        <h2>{dayString}</h2>
-        <Weather temperature={props.temperature} />
-      </article>
+      <h2>{dayString}</h2>
+      <Weather temperature={props.temperature} />
+      <LastMovie movies={props.movies} />
     </Layout>
   )
 }
 
-Index.getInitialProps = async function() {
+const getWeather = async function() {
   const res = await fetch(`http://api.mansurov.me/weather`)
   const data = await res.json()
 
+  return data.temperature
+}
+
+Index.getInitialProps = async function() {
+  const temperature = await getWeather()
+  const movies = await getMovies()
+
   return {
-    temperature: data.temperature
+    movies,
+    temperature
   }
 }
 
