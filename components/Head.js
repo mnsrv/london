@@ -77,9 +77,9 @@ export default () => (
       p + ul, p + ol{
           margin-top:-.75em; }
       p img, p picture{
-          float:right;
-          margin-bottom:.5em;
-          margin-left:.5em; }
+          float:left;
+          margin-bottom:1em;
+          margin-right:1em; }
       p img img, p picture img{
           float:none;
           margin:0; }
@@ -167,32 +167,35 @@ export default () => (
           font-size:1em;
           color:#aaa; }
 
+      article {
+          overflow: hidden; }
+
       article + article{
-          margin-top:5em; }
+          margin-top:1em; }
 
       article header p{
           font-family:"PT Sans", Helvetica, Arial, sans;
           font-size:.7em;
           color:#aaa; }
-      article header p + h1, article header p + h2{
-          margin-top:-.25em; }
+      article header p + h1, article header p + h2, article header p + h3{
+          margin-top:0; }
 
-      article header h1 + p, article header h2 + p{
+      article header h1 + p, article header h2 + p, article header h3 + p{
           margin-top:.25em; }
 
-      article header h1 a, article header h2 a{
+      article header h1 a, article header h2 a, article header h3 a{
           color:#000;
           background:url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="1"%3E%3Crect x="0" y="0.5" width="1" height="0.5" fill="rgba(0, 0, 0, 0.35)"/%3E%3C/svg%3E') left bottom repeat-x; }
       @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
-          article header h1 a, article header h2 a{
+          article header h1 a, article header h2 a, article header h3 a{
               background:url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="2"%3E%3Crect x="0" y="1" width="1" height="1" fill="rgba(0, 0, 0, 0.35)"/%3E%3C/svg%3E') left bottom repeat-x; } }
-      article header h1 a:visited, article header h2 a:visited{
+      article header h1 a:visited, article header h2 a:visited, article header h3 a:visited{
           color:#aaa;
           background:url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="1"%3E%3Crect x="0" y="0.5" width="1" height="0.5" fill="rgba(170, 170, 170, 0.35)"/%3E%3C/svg%3E') left bottom repeat-x; }
       @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
-          article header h1 a:visited, article header h2 a:visited{
+          article header h1 a:visited, article header h2 a:visited, article header h3 a:visited{
               background:url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="2"%3E%3Crect x="0" y="1" width="1" height="1" fill="rgba(170, 170, 170, 0.35)"/%3E%3C/svg%3E') left bottom repeat-x; } }
-      article header h1 a:visited:hover, article header h2 a:visited:hover{
+      article header h1 a:visited:hover, article header h2 a:visited:hover, article header h3 a:visited:hover{
           color:#3000c1; }
 
       article > footer{

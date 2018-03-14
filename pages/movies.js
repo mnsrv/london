@@ -1,16 +1,42 @@
+import React from 'react'
 import fetch from "isomorphic-unfetch"
 
 import Layout from '../components/Layout'
 import Movies from '../components/Movies'
 
-const MoviesPage = (props) => {
-  return (
-    <Layout>
-      <h2>Фильмы</h2>
-      <p>В хорошем качестве без смс</p>
-      <Movies movies={props.movies} />
-    </Layout>
-  )
+export default class MoviesPage extends React.Component {
+  static async getInitialProps() {
+    const movies = await getMovies()
+    return { movies }
+  }
+
+  state = {
+    mode: 'list' // list tile
+  }
+
+  render() {
+    return (
+      <Layout>
+        <h2>Фильмы</h2>
+        <p>Показать {this.renderListButton()} или {this.renderTileButton()}</p>
+        <Movies mode={this.state.mode} movies={this.props.movies} />
+      </Layout>
+    )
+  }
+
+  renderListButton = () => {
+    if (this.state.mode === 'list') {
+      return <span>списком</span>
+    }
+    return <a style={{ cursor: 'default' }} onClick={() => this.setState({ mode: 'list' }) }>списком</a>
+  }
+
+  renderTileButton = () => {
+    if (this.state.mode === 'tile') {
+      return <span>плиткой</span>
+    }
+    return <a style={{ cursor: 'default' }} onClick={() => this.setState({ mode: 'tile' }) }>плиткой</a>
+  }
 }
 
 export const getMovies = async function() {
@@ -19,13 +45,3 @@ export const getMovies = async function() {
 
   return data.data.reverse()
 }
-
-MoviesPage.getInitialProps = async function() {
-  const movies = await getMovies()
-
-  return {
-    movies
-  }
-}
-
-export default MoviesPage
