@@ -12,7 +12,7 @@ const LastMovie = (props) => {
   const month = months[movieDate.getMonth()]
   const date = `${day} ${month}`
 
-  return <p>{date} я <ActiveLink href="/movies"><a>посмотрел фильм</a></ActiveLink> «{lastMovie.title}»</p>
+  return <p>{date} я <ActiveLink href="/movies">посмотрел фильм</ActiveLink> «{lastMovie.title}»</p>
 }
 
 export default LastMovie
