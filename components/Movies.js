@@ -18,13 +18,15 @@ const posterStyle = {
 
 const rateEmojis = ['💩', '🤢🤢', '😌😌😌', '👏🏻👏🏻👏🏻👏🏻', '😍😍😍😍😍']
 const renderTileMovie = ({ id, title, poster, year }) => {
+  const backgroundImage = poster ? `url(https://image.tmdb.org/t/p/w185${poster})` : ''
   return (
     <div key={id} style={{ flexBasis: '20%', maxWidth: '20%', padding: 5 }} title={`${title} (${year})`}>
-      <div style={{ ...tilePoster, ...posterStyle, backgroundImage: `url(https://image.tmdb.org/t/p/w185${poster})` }} />
+      <div style={{ ...tilePoster, ...posterStyle, backgroundImage }} />
     </div>
   )
 }
 const renderListMovie = ({ id, title, poster, rating, watched_date, year }) => {
+  const src = poster ? `https://image.tmdb.org/t/p/w92${poster}` : ''
   const watchedDate = new Date(watched_date)
   const watchedDay = watchedDate.getDate()
   const watchedMonth = months[watchedDate.getMonth()]
@@ -35,7 +37,7 @@ const renderListMovie = ({ id, title, poster, rating, watched_date, year }) => {
   return (
     <article key={id}>
       <header>
-        <p><img style={posterStyle} src={`https://image.tmdb.org/t/p/w92${poster}`} />{watchedDateString}</p>
+        <p>{poster && <img style={posterStyle} src={src} />}{watchedDateString}</p>
         <h3>{title} <small style={{ fontWeight: 'normal', color: '#aaa' }}>{year}</small></h3>
         <span>{rateEmojis[Math.floor(rating / 2) - 1]}</span>
       </header>
