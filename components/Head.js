@@ -98,22 +98,23 @@ export default () => (
 
       aside{
           margin:.5em 0;
-          font-style:italic;
+          font-size:.8em;
+          font-weight: normal;
           color:#aaa; }
       @media (min-width: 65rem){
           aside{
               position:absolute;
-              right:-12.5rem;
+              left:-11rem;
               width:9.375rem;
               max-width:9.375rem;
+              text-align: right;
               margin:0;
-              padding-left:.5em;
-              font-size:.8em;
-              border-left:1px solid #f2f2f2; } }
-      aside:first-child{
-          margin-top:0; }
-      aside:last-child{
-          margin-bottom:0; }
+              padding-right:.5em;
+              font-size:1em;
+              border-right:1px solid #f2f2f2; }
+
+          .aside-hide {
+              display: none; }}
 
       section + section{
           margin-top:2em; }
@@ -352,6 +353,8 @@ export default () => (
           width: 100%;
           height: 100%;
       }
+      .help {
+          cursor: help; }
     `}</style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112751787-1"></script>
     <script dangerouslySetInnerHTML={{__html: `
