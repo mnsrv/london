@@ -1,5 +1,5 @@
 import ActiveLink from '../components/ActiveLink'
-import { months } from '../utils/date'
+import { dateDiffInDays, months } from '../utils/date'
 
 const LastMovie = (props) => {
   if (!props.movies) {
@@ -8,6 +8,10 @@ const LastMovie = (props) => {
 
   const lastMovie = props.movies[0]
   const movieDate = new Date(lastMovie.watched_date)
+  const differenceInDays = Math.abs(dateDiffInDays(movieDate, new Date()))
+  if (differenceInDays > 7) {
+    return null
+  }
   const day = movieDate.getDate()
   const month = months[movieDate.getMonth()]
   const date = `${day} ${month}`
