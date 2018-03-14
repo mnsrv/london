@@ -334,10 +334,10 @@ export default () => (
           color:#d00000; }
 
       ::-moz-selection{
-          background:rgba(0, 100, 193, 0.15); }
+          background:yellow; }
 
       ::selection{
-          background:rgba(0, 100, 193, 0.15); }
+          background:yellow; }
 
       .iframe {
           position: relative;
