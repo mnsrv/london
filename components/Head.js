@@ -366,7 +366,6 @@ export default () => (
       gtag('js', new Date());
       gtag('config', 'UA-112751787-1');
     `}}></script>
-    <!-- Chatra {literal} -->
     <script>
         (function(d, w, c) {
             w.ChatraID = 'aeSjcHXJXuKpCPZPA';
@@ -380,6 +379,5 @@ export default () => (
             if (d.head) d.head.appendChild(s);
         })(document, window, 'Chatra');
     </script>
-    <!-- /Chatra {/literal} -->
   </Head>
 )
