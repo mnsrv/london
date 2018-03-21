@@ -17,9 +17,14 @@ export default class MoviesPage extends React.Component {
   render() {
     return (
       <Layout>
-        <h2>Фильмы</h2>
-        <p>Показать {this.renderListButton()} или {this.renderTileButton()}</p>
-        <Movies mode={this.state.mode} movies={this.props.movies} />
+        <article>
+          <section style={{ backgroundColor: 'lightblue' }}>
+            <h2>Фильмы</h2>
+            <p>Показать {this.renderListButton()} или {this.renderTileButton()}</p>
+            {this.state.mode === 'tile' && <Movies mode={this.state.mode} movies={this.props.movies} />}
+          </section>
+          {this.state.mode === 'list' && <Movies mode={this.state.mode} movies={this.props.movies} />}
+        </article>
       </Layout>
     )
   }

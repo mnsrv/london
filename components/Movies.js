@@ -16,11 +16,13 @@ const posterStyle = {
   borderRadius: 8
 }
 
+const rateBackgroundColors = ['#AAA', '#BBB', '#CCC', '#DDD', '#EEE']
 const rateEmojis = ['💩', '🤢🤢', '😌😌😌', '👏🏻👏🏻👏🏻👏🏻', '😍😍😍😍😍']
+
 const renderTileMovie = ({ id, title, poster, year }) => {
   const backgroundImage = poster ? `url(https://image.tmdb.org/t/p/w185${poster})` : ''
   return (
-    <div key={id} style={{ flexBasis: '20%', maxWidth: '20%', padding: 5 }} title={`${title} (${year})`}>
+    <div key={id} className="movie-tile" title={`${title} (${year})`}>
       <div style={{ ...tilePoster, ...posterStyle, backgroundImage }} />
     </div>
   )
@@ -33,15 +35,15 @@ const renderListMovie = ({ id, title, poster, rating, watched_date, year }) => {
   const watchedYear = watchedDate.getFullYear()
   const watchedYearString = watchedYear === new Date().getFullYear() ? '' : watchedYear
   const watchedDateString = `${watchedDay} ${watchedMonth} ${watchedYearString}`
+  const ratingInFive = Math.floor(rating / 2) - 1
+  const backgroundColor = rateBackgroundColors[ratingInFive]
 
   return (
-    <article key={id}>
-      <header>
-        <p>{poster && <img style={posterStyle} src={src} />}{watchedDateString}</p>
-        <h3>{title} <small style={{ fontWeight: 'normal', color: '#aaa' }}>{year}</small></h3>
-        <span>{rateEmojis[Math.floor(rating / 2) - 1]}</span>
-      </header>
-    </article>
+    <section key={id} style={{ backgroundColor }}>
+      <p>{poster && <img style={posterStyle} src={src} />}{watchedDateString}</p>
+      <h3>{title} <small style={{ fontWeight: 'normal', color: '#aaa' }}>{year}</small></h3>
+      <span>{rateEmojis[ratingInFive]}</span>
+    </section>
   )
 }
 
@@ -50,13 +52,17 @@ const Movies = (props) => {
     return null
   }
 
-  const style = props.mode === 'tile' ? containerTileStyle : {}
-
-  return (
-    <div style={style}>
-      {props.movies.map(props.mode === 'tile' ? renderTileMovie : renderListMovie)}
-    </div>
-  )
+  if (props.mode === 'list') {
+    return props.movies.map(renderListMovie)
+  }
+  if (props.mode === 'tile') {
+    return (
+      <div style={containerTileStyle}>
+        {props.movies.map(renderTileMovie)}
+      </div>
+    )
+  }
+  return null
 }
 
 export default Movies

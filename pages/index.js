@@ -23,21 +23,21 @@ const Index = (props) => {
       return null
     }
     return (
-      <aside>
-        <span className="help" title={holiday.title}>{holiday.emoji}<span className="aside-hide"> – {holiday.title}</span></span>
-      </aside>
+      <p style={{ color: 'gray' }}>{holiday.emoji} – {holiday.title}</p>
     )
   }
 
 
   return (
     <Layout>
-      <h2>
-        {renderHoliday()}
-        {dayString}
-      </h2>
-      <Weather temperature={props.temperature} />
-      <LastMovie movies={props.movies} />
+      <article>
+        <section style={{ backgroundColor: 'lightblue' }}>
+          <h2>{dayString}</h2>
+          {renderHoliday()}
+          <Weather temperature={props.temperature} />
+        </section>
+        <LastMovie movies={props.movies} />
+      </article>
     </Layout>
   )
 }

@@ -13,16 +13,13 @@ export default () => (
           font-family: 'Anonymous Pro', monospace;
           font-size:100%;
           line-height:1.6;
-          background:#fafafa;
+          background:white;
           color:#000;
           -webkit-overflow-scrolling:touch; }
 
       body{
-          margin:1em;
+          margin:0;
           font-size:1rem; }
-      @media (min-width: 20rem){
-          body{
-              font-size:calc(1rem + 0.0125 * (100vw - 20rem)); } }
       @media (min-width: 50rem){
           body{
               font-size:1.25rem; } }
@@ -31,25 +28,38 @@ export default () => (
       body footer,
       body article{
           position:relative;
-          max-width:50rem;
           margin:0 auto; }
-      body header{
-          margin-bottom:2em; }
+      body header {
+          background-color: white; }
       body header h1{
-          margin:0;
-          font-size:1.5em; }
+          margin:0; }
       body header p{
           margin:0;
-          font-size:.85em; }
+          color: #aaa; }
       body footer{
           margin-top:4.5em;
           padding-bottom:1.5em;
           text-align:center;
           font-size:.8rem;
           color:#aaa; }
+      body header,
+      section {
+          box-shadow: inset 1px 1px 0px 0px rgba(0, 0, 0, .05);
+          padding: 2rem; }
+      @media (min-width: 50rem){
+          body header,
+          section {
+            padding: 4rem; } }
+
+      section {
+          flex-grow: 1;
+          flex-basis: 100%; }
+      @media (min-width: 50rem){
+          section {
+            flex-basis: 50%; } }
 
       nav{
-          margin:1em 0; }
+          margin:1em 0 0; }
       nav ul{
           list-style:none;
           margin:0;
@@ -57,9 +67,7 @@ export default () => (
       nav ul li{
           display:inline-block;
           margin-right:1em;
-          margin-bottom:.25em; }
-      nav a:visited{
-          color:#0064c1; }
+          margin-bottom:0; }
       nav a:hover{
           color:#3000c1; }
 
@@ -78,7 +86,7 @@ export default () => (
           margin-top:-.75em; }
       p img, p picture{
           float:left;
-          margin-bottom:1em;
+          margin-bottom:0;
           margin-right:1em; }
       p img img, p picture img{
           float:none;
@@ -116,11 +124,8 @@ export default () => (
           .aside-hide {
               display: none; }}
 
-      section + section{
-          margin-top:2em; }
-
       h1, h2, h3, h4, h5, h6{
-          margin:1.25em 0 0;
+          margin:0;
           line-height:1.2; }
       h1:hover > a[href^='#'][id], h1:focus > a[href^='#'][id], h2:hover > a[href^='#'][id], h2:focus > a[href^='#'][id], h3:hover > a[href^='#'][id], h3:focus > a[href^='#'][id], h4:hover > a[href^='#'][id], h4:focus > a[href^='#'][id], h5:hover > a[href^='#'][id], h5:focus > a[href^='#'][id], h6:hover > a[href^='#'][id], h6:focus > a[href^='#'][id]{
           opacity:1;
@@ -168,6 +173,8 @@ export default () => (
           color:#aaa; }
 
       article {
+          display: flex;
+          flex-wrap: wrap;
           overflow: hidden; }
 
       article + article{
@@ -211,8 +218,6 @@ export default () => (
       @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
           a{
               background:url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="2"%3E%3Crect x="0" y="1" width="1" height="1" fill="rgba(0, 100, 193, 0.35)"/%3E%3C/svg%3E') left bottom repeat-x; } }
-      a:visited{
-          color:#80b2e0; }
       a:hover, a:active{
           outline-width:0; }
       a:hover{
@@ -358,6 +363,15 @@ export default () => (
       }
       .help {
           cursor: help; }
+      .movie-tile {
+          flex-basis: 20%;
+          max-width: 20%;
+          padding: 5px; }
+      @media (min-width: 50rem){
+          .movie-tile {
+              flex-basis: 10%;
+              max-width: 10%;
+              padding: 5px; } }
     `}</style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112751787-1"></script>
     <script dangerouslySetInnerHTML={{__html: `
