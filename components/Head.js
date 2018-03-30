@@ -19,7 +19,10 @@ export default () => (
 
       body{
           margin:0;
-          font-size:1rem; }
+          font-size:0.75rem; }
+      @media (min-width: 25rem) {
+          body{
+              font-size:1rem; } }
       @media (min-width: 50rem){
           body{
               font-size:1.25rem; } }
