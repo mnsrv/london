@@ -366,14 +366,64 @@ export default () => (
       }
       .help {
           cursor: help; }
-      .movie-tile {
-          flex-basis: 20%;
-          max-width: 20%;
-          padding: 5px; }
-      @media (min-width: 50rem){
-          .movie-tile {
-              flex-basis: 10%;
-              max-width: 10%;
+
+      /* MOVIES */
+      .poster__container {
+        -ms-flex-preferred-size: 50%;
+            flex-basis: 50%;
+        max-width: 50%;
+        padding: 5px;
+
+        -webkit-perspective: 1000px;
+
+                perspective: 1000px;
+      }
+      .poster__container_flipped .poster__flipper {
+        -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg);
+      }
+      .poster__flipper {
+        -webkit-transition: 0.6s;
+        -o-transition: 0.6s;
+        transition: 0.6s;
+        -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+        position: relative;
+        width: 100%;
+        padding-bottom: 150%;
+      }
+      
+      .poster__side {
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #2c3641;
+        border-radius: 0.5rem;
+      }
+      .poster__side_front {
+        width: 100%;
+        padding-bottom: 150%;
+        z-index: 2;
+        -webkit-transform: rotateY(0deg);
+                transform: rotateY(0deg);
+        background-size: cover;
+        background-position: center;
+      }
+      .poster__side_back {
+        box-shadow: inset 0 -1px 0 #456;
+        padding: 1rem;
+        -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg);
+      }
+      @media (min-width: 65rem){
+          .poster__container {
+              -ms-flex-preferred-size: 20%;
+                  flex-basis: 20%;
+              max-width: 20%;
               padding: 5px; } }
     `}</style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112751787-1"></script>

@@ -1,3 +1,5 @@
+import { Component } from 'react'
+
 import { months } from '../utils/date'
 
 const containerTileStyle = {
@@ -5,64 +7,48 @@ const containerTileStyle = {
   flexWrap: 'wrap',
   margin: -5
 }
-const tilePoster = {
-  width: '100%',
-  paddingBottom: '150%',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-}
-const posterStyle = {
-  backgroundColor: '#161718',
-  borderRadius: 8
-}
 
-const rateBackgroundColors = ['#AAA', '#BBB', '#CCC', '#DDD', '#EEE']
 const rateEmojis = ['💩', '🤢🤢', '😌😌😌', '👏🏻👏🏻👏🏻👏🏻', '😍😍😍😍😍']
 
-const renderTileMovie = ({ id, title, poster, year }) => {
-  const backgroundImage = poster ? `url(https://image.tmdb.org/t/p/w185${poster})` : ''
-  return (
-    <div key={id} className="movie-tile" title={`${title} (${year})`}>
-      <div style={{ ...tilePoster, ...posterStyle, backgroundImage }} />
-    </div>
-  )
-}
-const renderListMovie = ({ id, title, poster, rating, watched_date, year }) => {
-  const src = poster ? `https://image.tmdb.org/t/p/w92${poster}` : ''
-  const watchedDate = new Date(watched_date)
-  const watchedDay = watchedDate.getDate()
-  const watchedMonth = months[watchedDate.getMonth()]
-  const watchedYear = watchedDate.getFullYear()
-  const watchedYearString = watchedYear === new Date().getFullYear() ? '' : watchedYear
-  const watchedDateString = `${watchedDay} ${watchedMonth} ${watchedYearString}`
-  const ratingInFive = Math.floor(rating / 2) - 1
-  const backgroundColor = rateBackgroundColors[ratingInFive]
-
-  return (
-    <section key={id} style={{ backgroundColor }}>
-      <p>{poster && <img style={posterStyle} src={src} />}{watchedDateString}</p>
-      <h3>{title} <small style={{ fontWeight: 'normal', color: '#aaa' }}>{year}</small></h3>
-      <span>{rateEmojis[ratingInFive]}</span>
-    </section>
-  )
-}
-
-const Movies = (props) => {
-  if (typeof props.movies == null) {
-    return null
+export default class Movies extends Component {
+  state = {
+    flippedIndex: null
   }
 
-  if (props.mode === 'list') {
-    return props.movies.map(renderListMovie)
-  }
-  if (props.mode === 'tile') {
+  render() {
+    const { movies = [] } = this.props
+
     return (
       <div style={containerTileStyle}>
-        {props.movies.map(renderTileMovie)}
+        {movies.map(this.renderMovie)}
       </div>
     )
   }
-  return null
-}
 
-export default Movies
+  renderMovie = ({ id, title, poster, rating, year }, index) => {
+    const backgroundImage = poster ? `url(https://image.tmdb.org/t/p/w500${poster})` : ''
+    const className = index === this.state.flippedIndex ? 'poster__container poster__container_flipped' : 'poster__container'
+    const ratingInFive = Math.floor(rating / 2) - 1
+
+    return (
+      <div key={id} className={className} onClick={() => { this.flipMovie(index) }}>
+        <div class="poster__flipper">
+          <div class="poster__side poster__side_front" style={{ backgroundImage }} />
+          <div class="poster__side poster__side_back">
+            <h5 style={{ color: 'white' }}>{title}</h5>
+            <small style={{ fontWeight: 'normal', color: '#89a' }}>{year}</small>
+            <p>{rateEmojis[ratingInFive]}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  flipMovie = (index) => {
+    if (index === this.state.flippedIndex) {
+      this.setState({ flippedIndex: null })
+    } else {
+      this.setState({ flippedIndex: index })
+    }
+  }
+}
