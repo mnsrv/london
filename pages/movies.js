@@ -26,8 +26,8 @@ export default class MoviesPage extends React.Component {
 }
 
 export const getMovies = async function() {
-  const res = await fetch(`https://api.mansurov.me/movies`)
-  const data = await res.json()
+  const res = await fetch('https://api.mansurov.me/movies')
+  const movies = await res.json()
 
-  return data.data.reverse()
+  return movies.sort((a, b) => new Date(b.watched_date) - new Date(a.watched_date))
 }
