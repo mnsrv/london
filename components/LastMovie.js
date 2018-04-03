@@ -9,7 +9,7 @@ const LastMovie = (props) => {
   const lastMovie = props.movies[0]
   const movieDate = new Date(lastMovie.watched_date)
   const differenceInDays = Math.abs(dateDiffInDays(movieDate, new Date()))
-  if (differenceInDays > 7) {
+  if (differenceInDays > 7 || !lastMovie.title) {
     return null
   }
   const day = movieDate.getDate()
