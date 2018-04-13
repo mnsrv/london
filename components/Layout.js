@@ -1,8 +1,7 @@
-import Head from './Head'
 import Header from './Header'
+import '../static/style.css'
 
 const Layout = (props) => [
-  <Head key="head" />,
   <Header key="header" />,
   props.children
 ]
