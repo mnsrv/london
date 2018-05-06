@@ -51,9 +51,14 @@ export default class Movies extends Component {
 
   selectEmoji = (index) => {
     if (index === this.state.selectedEmojiFilterIndex) {
-      this.setState({ selectedEmojiFilterIndex: null, movies: this.props.movies })
+      this.setState({
+        flippedIndex: null,
+        selectedEmojiFilterIndex: null,
+        movies: this.props.movies
+      })
     } else {
       this.setState({
+        flippedIndex: null,
         selectedEmojiFilterIndex: index,
         movies: this.props.movies.filter(movie => (movie.rating / 2) - 1 === index)
       })
