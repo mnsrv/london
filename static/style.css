@@ -361,9 +361,9 @@ noscript{
 
 /* MOVIES */
 .poster__container {
-    -ms-flex-preferred-size: 25%;
-    flex-basis: 25%;
-    max-width: 25%;
+    -ms-flex-preferred-size: 33.3333%;
+    flex-basis: 33.3333%;
+    max-width: 33.3333%;
     padding: 5px;
 
   /*-webkit-perspective: 1000px;
@@ -412,9 +412,9 @@ noscript{
 }
 @media (min-width: 65rem){
     .poster__container {
-        -ms-flex-preferred-size: 14.285714%;
-        flex-basis: 14.285714%;
-        max-width: 14.285714%;
+        -ms-flex-preferred-size: 20%;
+        flex-basis: 20%;
+        max-width: 20%;
         padding: 5px; } }
 
 .filter {
