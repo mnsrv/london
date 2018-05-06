@@ -29,5 +29,5 @@ export const getMovies = async function() {
   const res = await fetch('https://api.mansurov.me/movies')
   const movies = await res.json()
 
-  return movies.sort((a, b) => new Date(b.watched_date) - new Date(a.watched_date))
+  return movies.sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
 }
