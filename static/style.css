@@ -413,3 +413,25 @@ noscript{
     .poster__container {
         width: 171px;
         padding: 5px; } }
+
+.filter {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 20px;
+    line-height: normal;
+    cursor: pointer;
+    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    }
+.filter:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+.filter.is-selected {
+    background-color: rgba(255, 255, 255, 1);
+}

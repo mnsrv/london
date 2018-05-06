@@ -7,22 +7,57 @@ const containerTileStyle = {
   flexWrap: 'wrap',
   margin: -5
 }
+const containerFilterStyle = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  marginBottom: 40
+}
 
 const rateEmojis = ['💩', '🤢🤢', '😌😌😌', '👏🏻👏🏻👏🏻👏🏻', '😍😍😍😍😍']
 
 export default class Movies extends Component {
-  state = {
-    flippedIndex: null
+  static defaultProps = {
+    movies: []
+  }
+
+  constructor(props) {
+    super()
+
+    this.state = {
+      movies: props.movies,
+      selectedEmojiFilterIndex: null,
+      flippedIndex: null
+    }
   }
 
   render() {
-    const { movies = [] } = this.props
+    return [
+      <div key="filter" style={containerFilterStyle}>
+        {rateEmojis.map(this.renderEmojiFilter)}
+      </div>,
+      <div key="movies" style={containerTileStyle}>
+        {this.state.movies.map(this.renderMovie)}
+      </div>
+    ]
+  }
+
+  renderEmojiFilter = (emoji, index) => {
+    const className = index === this.state.selectedEmojiFilterIndex ? 'filter is-selected' : 'filter'
 
     return (
-      <div style={containerTileStyle}>
-        {movies.map(this.renderMovie)}
-      </div>
+      <div key={emoji} className={className} onClick={() => { this.selectEmoji(index) }}>{emoji}</div>
     )
+  }
+
+  selectEmoji = (index) => {
+    if (index === this.state.selectedEmojiFilterIndex) {
+      this.setState({ selectedEmojiFilterIndex: null, movies: this.props.movies })
+    } else {
+      this.setState({
+        selectedEmojiFilterIndex: index,
+        movies: this.props.movies.filter(movie => (movie.rating / 2) - 1 === index)
+      })
+    }
   }
 
   renderMovie = ({ id, title, poster, rating, year }, index) => {
