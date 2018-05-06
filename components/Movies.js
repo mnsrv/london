@@ -10,7 +10,7 @@ const containerTileStyle = {
 const containerFilterStyle = {
   display: 'flex',
   flexWrap: 'wrap',
-  marginBottom: 40
+  marginBottom: 20
 }
 
 const rateEmojis = ['💩', '🤢🤢', '😌😌😌', '👏🏻👏🏻👏🏻👏🏻', '😍😍😍😍😍']
