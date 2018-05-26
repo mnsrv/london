@@ -1,6 +1,7 @@
 import { Component } from 'react'
 
 import { months } from '../utils/date'
+import { rateEmojis } from '../utils/movie'
 
 const containerTileStyle = {
   display: 'flex',
@@ -12,8 +13,6 @@ const containerFilterStyle = {
   flexWrap: 'wrap',
   marginBottom: 20
 }
-
-const rateEmojis = ['💩', '🤢🤢', '😌😌😌', '👏🏻👏🏻👏🏻👏🏻', '😍😍😍😍😍']
 
 export default class Movies extends Component {
   static defaultProps = {
@@ -75,7 +74,7 @@ export default class Movies extends Component {
         <div className="poster__flipper">
           <div className="poster__side poster__side_front" style={{ backgroundImage }} />
           <div className="poster__side poster__side_back">
-            <h5 style={{ color: 'white' }}>{title}</h5>
+            <h4 style={{ color: 'white' }}>{title}</h4>
             <small style={{ fontWeight: 'normal', color: '#89a' }}>{year}</small>
             <p>{rateEmojis[ratingInFive]}</p>
           </div>
