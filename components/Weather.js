@@ -4,7 +4,10 @@ export default (props) => {
   }
 
   const city = 'Москве'
-  const tempString = `В ${city} ${Math.round(props.temperature)}°C`
+  const tempString = `${Math.round(props.temperature)}°C`
 
-  return <p>{tempString}</p>
+  return [
+    <h3 key="title">{`Погода в ${city}`}</h3>,
+    <p key="body">{tempString}</p>
+  ]
 }
