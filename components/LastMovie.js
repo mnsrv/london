@@ -1,25 +1,27 @@
 import ActiveLink from '../components/ActiveLink'
-import { dateDiffInDays, months } from '../utils/date'
+import { localeMonthsGenitive } from '../utils/date'
+import { rateEmojis } from '../utils/movie'
 
-const LastMovie = (props) => {
-  if (!props.movies) {
+const LastMovie = ({ movies }) => {
+  if (!movies) {
     return null
   }
 
-  const lastMovie = props.movies[0]
-  const movieDate = new Date(lastMovie.watched_date)
-  const differenceInDays = Math.abs(dateDiffInDays(movieDate, new Date()))
-  if (differenceInDays > 7 || !lastMovie.title) {
-    return null
-  }
-  const day = movieDate.getDate()
-  const month = months[movieDate.getMonth()]
-  const date = `${day} ${month}`
+  const lastMovies = movies.slice(0, 3)
 
   return (
-    <section style={{ backgroundColor: '#ddd' }}>
-      <p>{date} я <ActiveLink href="/movies">посмотрел фильм</ActiveLink> «{lastMovie.title}»</p>
-    </section>
+    <div>
+      <h3>Три последних фильма</h3>
+      {lastMovies.map(movie => {
+        const movieDate = new Date(movie.watched_date)
+        const day = movieDate.getDate()
+        const month = localeMonthsGenitive[movieDate.getMonth()]
+        const date = `${day} ${month}`
+        const ratingInFive = Math.floor(movie.rating / 2) - 1
+
+        return <p key={movie.id.toString()}>{date} – «{movie.title}» – {rateEmojis[ratingInFive]}</p>
+      })}
+    </div>
   )
 }
 
