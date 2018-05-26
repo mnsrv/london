@@ -27,10 +27,11 @@ body article{
 body header {
     background-color: white; }
 body header h1{
-    margin:0; }
+    margin:0;
+    font-size:1.5em; }
 body header p{
     margin:0;
-    color: #aaa; }
+    font-size:.85em; }
 body footer{
     margin-top:4.5em;
     padding-bottom:1.5em;
@@ -39,18 +40,17 @@ body footer{
     color:#aaa; }
 body header,
 section {
-    box-shadow: inset 1px 1px 0px 0px rgba(0, 0, 0, .05);
-    padding: 2rem; }
+    padding: 1em; }
 @media (min-width: 50rem){
     body header,
     section {
-      padding: 4rem; } }
+      padding: 1.5em; } }
 
-section {
+.section_grow {
     flex-grow: 1;
     flex-basis: 100%; }
 @media (min-width: 50rem){
-    section {
+    .section_grow {
       flex-basis: 50%; } }
 
 nav{
@@ -62,7 +62,7 @@ nav ul{
 nav ul li{
     display:inline-block;
     margin-right:1em;
-    margin-bottom:0; }
+    margin-bottom:.25em; }
 nav a:hover{
     color:#3000c1; }
 
@@ -127,7 +127,7 @@ h1:hover > a[href^='#'][id], h1:focus > a[href^='#'][id], h2:hover > a[href^='#'
     -webkit-transition:opacity 0s, color 300ms ease-out;
     transition:opacity 0s, color 300ms ease-out; }
 h1 + p, h1 + details, h2 + p, h2 + details, h3 + p, h3 + details, h4 + p, h4 + details, h5 + p, h5 + details, h6 + p, h6 + details{
-    margin-top:.5em; }
+    margin-top:0; }
 h1 > a[href^='#'][id], h2 > a[href^='#'][id], h3 > a[href^='#'][id], h4 > a[href^='#'][id], h5 > a[href^='#'][id], h6 > a[href^='#'][id]{
     position:absolute;
     left:-.5em;
@@ -147,25 +147,12 @@ h1 > a[href^='#'][id]:target:focus, h2 > a[href^='#'][id]:target:focus, h3 > a[h
 h1 > a[href^='#'][id]::before, h2 > a[href^='#'][id]::before, h3 > a[href^='#'][id]::before, h4 > a[href^='#'][id]::before, h5 > a[href^='#'][id]::before, h6 > a[href^='#'][id]::before{
     content:'•'; }
 
-h1{
-    font-size:2em; }
-
-h2{
-    font-size:1.75em; }
-
-h3{
-    font-size:1.25em; }
-
-h4{
-    font-size:1.15em; }
-
-h5{
-    font-size:1em; }
-
-h6{
-    margin-top:1em;
-    font-size:1em;
-    color:#aaa; }
+h1{font-size:2em;margin-bottom: 0.5em;}
+h2{font-size:1.75em;margin-bottom: 0.5em;}
+h3{font-size:1.25em;margin-bottom: 0.5em;}
+h4{font-size:1.15em;margin-bottom: 0.5em;}
+h5{font-size:1em;margin-bottom: 0.5em;}
+h6{font-size:1em;margin-top:1em;color:#aaa;}
 
 article {
     display: flex;

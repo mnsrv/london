@@ -16,7 +16,7 @@ export default class MoviesPage extends React.Component {
     return (
       <Layout>
         <article>
-          <section style={{ backgroundColor: 'rgb(20,24,28)' }}>
+          <section className="section_grow" style={{ backgroundColor: 'rgb(20,24,28)' }}>
             <Movies movies={this.props.movies} />
           </section>
         </article>

@@ -4,18 +4,22 @@ import { getMovies } from './movies'
 import Layout from '../components/Layout'
 import Weather from '../components/Weather'
 import LastMovie from '../components/LastMovie'
+import Calendar from '../components/Calendar'
 import { months } from '../utils/date'
 
 const Index = (props) => {
   return (
     <Layout>
       <article>
-        <section style={{ backgroundColor: 'lightblue' }}>
-          <h2>{dayString}</h2>
-          {renderHoliday()}
+        <section>
+          <Calendar />
+        </section>
+        <section>
           <Weather temperature={props.temperature} />
         </section>
-        <LastMovie movies={props.movies} />
+        <section>
+          <LastMovie movies={props.movies} />
+        </section>
       </article>
     </Layout>
   )
@@ -33,7 +37,7 @@ Index.getInitialProps = async function() {
   const movies = await getMovies()
 
   return {
-    movies,
+    movies: movies.sort((a, b) => new Date(b.watched_date) - new Date(a.watched_date)),
     temperature
   }
 }
