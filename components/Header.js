@@ -16,6 +16,11 @@ const Header = () => (
             Фильмы
           </ActiveLink>
         </li>
+        <li>
+          <ActiveLink href="/worldcup">
+            Чемпионат мира ⚽🏆
+          </ActiveLink>
+        </li>
       </ul>
     </nav>
   </header>

@@ -21,6 +21,10 @@ export const dateDiffInDays = (a, b) => {
   return Math.floor((utc2 - utc1) / MS_PER_DAY);
 }
 
+export const getFullMinutes = (date) => {
+  return (date.getMinutes()<10?'0':'') + date.getMinutes()
+}
+
 /* For a given date, get the ISO week number
  *
  * Based on information at:
