@@ -7,18 +7,20 @@ import { localeCountries, localeCities, localeStadiums } from '../utils/worldcup
 
 export const Match = ({ match, teams, stadiums }) => {
   const date = new Date(match.date)
+  const now = new Date()
   const homeTeam = teams[match.home_team - 1]
   const awayTeam = teams[match.away_team - 1]
   const stadium = stadiums[match.stadium - 1]
-
-  const time = `${date.getHours()}:${getFullMinutes(date)}`
+  const nowPlaying = now.getTime() - date.getTime() > 0 && !match.finished
+  const time = nowPlaying ? 'Идёт сейчас.' : `${date.getHours()}:${getFullMinutes(date)}`
   const place = stadium.city === 'Moscow' ? `${localeCities[stadium.city]}. ${localeStadiums[stadium.name]}` : `${localeCities[stadium.city]}`
 
+  const timePlaceString = match.finished ? place : `${time} ${place}`
   const string = `${localeCountries[homeTeam.name]} ${homeTeam.emojiString} ${match.home_result != null ? match.home_result : ''} : ${match.away_result != null ? match.away_result : ''} ${awayTeam.emojiString} ${localeCountries[awayTeam.name]}`
 
   return (
     <div style={{ marginBottom: '1em' }}>
-      <p style={{ fontSize: '0.6em', color: '#aaa', marginBottom: 0 }}>{time} {place}</p>
+      <p style={{ fontSize: '0.6em', color: nowPlaying ? 'rgb(255,40,0)' : '#aaa', marginBottom: 0 }}>{timePlaceString}</p>
       <p style={{ marginTop: 0 }}>{string}</p>
     </div>
   )
