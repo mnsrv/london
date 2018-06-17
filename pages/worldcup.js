@@ -3,6 +3,7 @@ import fetch from "isomorphic-unfetch"
 
 import Layout from '../components/Layout'
 import { localeMonthsGenitive, getFullMinutes } from '../utils/date'
+import { countries } from '../utils/countries'
 
 export const Match = ({ match, teams, stadiums }) => {
   const date = new Date(match.date)
@@ -13,7 +14,7 @@ export const Match = ({ match, teams, stadiums }) => {
   const time = `${date.getHours()}:${getFullMinutes(date)}`
   const place = stadium.city === 'Moscow' ? `${stadium.city}. ${stadium.name}` : `${stadium.city}`
 
-  const string = `${homeTeam.name} ${homeTeam.emojiString} ${match.home_result != null ? match.home_result : ''} : ${match.away_result != null ? match.away_result : ''} ${awayTeam.emojiString} ${awayTeam.name}`
+  const string = `${countries[homeTeam.name]} ${homeTeam.emojiString} ${match.home_result != null ? match.home_result : ''} : ${match.away_result != null ? match.away_result : ''} ${awayTeam.emojiString} ${countries[awayTeam.name]}`
 
   return (
     <div style={{ marginBottom: '1em' }}>
