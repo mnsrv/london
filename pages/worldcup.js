@@ -61,7 +61,7 @@ export default class WorldCupPage extends React.Component {
               return (
                 <div key={item[0]}>
                   <h5>{item[0]}</h5>
-                  {item[1].map(match => <Match match={match} teams={teams} stadiums={stadiums} />)}
+                  {item[1].map(match => <Match key={match.name} match={match} teams={teams} stadiums={stadiums} />)}
                 </div>
               )
             })}
