@@ -15,7 +15,7 @@ const Index = (props) => {
         </section>
         <section>
           <div>
-            <h3>Чемпионат мира ⚽🏆</h3>
+            <h3>Чемпионат мира</h3>
             {props.matches.map((item) => {
               const date = new Date()
               const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
