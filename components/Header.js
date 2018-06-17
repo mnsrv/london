@@ -18,7 +18,7 @@ const Header = () => (
         </li>
         <li>
           <ActiveLink href="/worldcup">
-            Чемпионат мира ⚽🏆
+            Чемпионат мира
           </ActiveLink>
         </li>
       </ul>
