@@ -13,6 +13,7 @@ export const Match = ({ match, teams, stadiums }) => {
   const stadium = stadiums[match.stadium - 1]
   const nowPlaying = now.getTime() - date.getTime() > 0 && !match.finished
   const time = nowPlaying ? 'Идёт сейчас.' : `${date.getHours()}:${getFullMinutes(date)}`
+  const color = nowPlaying ? 'rgb(255,40,0)' : '#aaa'
   const place = stadium.city === 'Moscow' ? `${localeCities[stadium.city]}. ${localeStadiums[stadium.name]}` : `${localeCities[stadium.city]}`
 
   const timePlaceString = match.finished ? place : `${time} ${place}`
@@ -20,7 +21,7 @@ export const Match = ({ match, teams, stadiums }) => {
 
   return (
     <div style={{ marginBottom: '1em' }}>
-      <p style={{ fontSize: '0.6em', color: nowPlaying ? 'rgb(255,40,0)' : '#aaa', marginBottom: 0 }}>{timePlaceString}</p>
+      <p style={{ fontSize: '0.6em', color, marginBottom: 0 }}>{timePlaceString}</p>
       <p style={{ marginTop: 0 }}>{string}</p>
     </div>
   )
