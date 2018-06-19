@@ -17,9 +17,11 @@ const Index = (props) => {
           <div>
             <h3>Чемпионат мира</h3>
             {props.matches.map((item) => {
-              const date = new Date()
+              const now = new Date()
+              const date = new Date(Number(item[0]))
+              const nowString = `${now.getDate()} ${localeMonthsGenitive[now.getMonth()]}`
               const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
-              if (item[0] !== dateString) {
+              if (nowString !== dateString) {
                 return null
               }
               return (

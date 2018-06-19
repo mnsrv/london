@@ -33,11 +33,12 @@ export const getMatches = (groups) => {
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .reduce(((result, item, index, array) => {
       const date = new Date(item.date)
-      const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
-      if (result[dateString]) {
-        result[dateString].push(item)
+      const dayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59)
+      const dateTimestamp = dayDate.getTime()
+      if (result[dateTimestamp]) {
+        result[dateTimestamp].push(item)
       } else {
-        result[dateString] = [item]
+        result[dateTimestamp] = [item]
       }
       return result
     }), {})
@@ -60,9 +61,15 @@ export default class WorldCupPage extends React.Component {
         <article>
           <section>
             {matches.map((item) => {
+              const now = new Date()
+              const date = new Date(Number(item[0]))
+              const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
+              if (now.getTime() > Number(item[0])) {
+                return null
+              }
               return (
                 <div key={item[0]}>
-                  <h5>{item[0]}</h5>
+                  <h5>{dateString}</h5>
                   {item[1].map(match => <Match key={match.name} match={match} teams={teams} stadiums={stadiums} />)}
                 </div>
               )
