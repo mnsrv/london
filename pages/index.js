@@ -26,7 +26,7 @@ const Index = (props) => {
               }
               return (
                 <div key={item[0]}>
-                  {item[1].map(match => <Match match={match} teams={props.teams} stadiums={props.stadiums} />)}
+                  {item[1].map(match => <Match key={match.name} match={match} teams={props.teams} stadiums={props.stadiums} />)}
                 </div>
               )
             })}

@@ -30,7 +30,7 @@ const Calendar = () => {
         <Row key={week.toString()}>
           {days.map((day, index) => day > 0
             ? <Cell key={day} today={day === today}>{day}</Cell>
-            : <Cell key={(day + index).toString()} />
+            : <Cell key={`${(day+index).toString()}-empty`} />
           )}
         </Row>
       ))}
