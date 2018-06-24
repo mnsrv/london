@@ -9,7 +9,7 @@ import { Match, getWorldCupData, getMatches } from './worldcup'
 const Index = (props) => {
   return (
     <Layout>
-      <article>
+      <article className="article_flex">
         <section>
           <Calendar />
         </section>

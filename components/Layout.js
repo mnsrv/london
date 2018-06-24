@@ -3,7 +3,7 @@ import '../static/style.css'
 
 const Layout = (props) => [
   <Header key="header" />,
-  props.children
+  <main key="main">{props.children}</main>
 ]
 
 export default Layout
