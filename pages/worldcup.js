@@ -96,13 +96,27 @@ export default class WorldCupPage extends React.Component {
                           })}
                           {remainingMatches.map((remainingMatch) => {
                             const match = item.matches.find(match => remainingMatch[1].map(item => item.name).includes(match.name))
-                            if (!match) {
+                            if (!match || match.finished) {
                               return <td key={remainingMatch[0]} />
                             }
                             const competitor = match.home_team === item.id ? match.away_team : match.home_team
+                            const now = new Date()
                             const date = new Date(match.date)
+                            const nowPlaying = now.getTime() - date.getTime() > 0
+                            if (nowPlaying) {
+                              const a = match.home_team === item.id ? match.home_result : match.away_result
+                              const b = match.home_team === item.id ? match.away_result : match.home_result
+                              return <td key={timeString}>{a} – {b} {teams[competitor - 1].emojiString}</td>
+                            }
                             const timeString = `${date.getHours()}:${getFullMinutes(date)}`
-                            return <td key={timeString}>{timeString} {teams[competitor - 1].emojiString}</td>
+                            const stadium = stadiums[match.stadium - 1]
+                            const place = localeCities[stadium.city]
+                            return (
+                              <td key={timeString} style={{ position: 'relative' }}>
+                                <p style={{ fontSize: '0.6em', color: 'rgb(170, 170, 170)', marginBottom: 0, position: 'absolute', top: 0, lineHeight: '1em' }}>{place}</p>
+                                {timeString} {teams[competitor - 1].emojiString}
+                              </td>
+                            )
                           })}
                         </tr>
                       )
