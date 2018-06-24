@@ -55,11 +55,83 @@ export default class WorldCupPage extends React.Component {
   }
 
   render() {
-    const { matches, stadiums, teams } = this.props
+    const { groups, matches, stadiums, teams } = this.props
 
     return (
       <Layout>
         <article>
+          <section>
+            {Object.entries(groups).map(item => {
+              const groupTeams = []
+              item[1].matches.map((item) => {
+                if (item.finished) {
+                  const homeMatches = 1
+                  const homeScore = item.home_result
+                  const homeMiss = item.away_result
+                  const homePoints = this.getPoints(item.home_result, item.away_result)
+                  const awayMatches = 1
+                  const awayScore = item.away_result
+                  const awayMiss = item.home_result
+                  const awayPoints = this.getPoints(item.away_result, item.home_result)
+                  groupTeams[item.home_team] = {
+                    id: item.home_team,
+                    matches: groupTeams[item.home_team] ? groupTeams[item.home_team].matches + homeMatches : homeMatches,
+                    score: groupTeams[item.home_team] ? groupTeams[item.home_team].score + homeScore : homeScore,
+                    miss: groupTeams[item.home_team] ? groupTeams[item.home_team].miss + homeMiss : homeMiss,
+                    points: groupTeams[item.home_team] ? groupTeams[item.home_team].points + homePoints : homePoints
+                  }
+                  groupTeams[item.away_team] = {
+                    id: item.away_team,
+                    matches: groupTeams[item.away_team] ? groupTeams[item.away_team].matches + awayMatches : awayMatches,
+                    score: groupTeams[item.away_team] ? groupTeams[item.away_team].score + awayScore : awayScore,
+                    miss: groupTeams[item.away_team] ? groupTeams[item.away_team].miss + awayMiss : awayMiss,
+                    points: groupTeams[item.away_team] ? groupTeams[item.away_team].points + awayPoints : awayPoints
+                  }
+                }
+              })
+              return (
+                <table key={item[0]} style={{ marginRight: '2em', marginBottom: '2em' }}>
+                  <thead>
+                    <tr>
+                      <th>Группа {item[0].toUpperCase()}</th>
+                      <th>М</th>
+                      <th>З - П</th>
+                      <th>О</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {groupTeams
+                      .sort((a, b) => {
+                        if (b.points > a.points) {
+                          return 1
+                        }
+                        if (b.points < a.points) {
+                          return -1
+                        }
+                        if (b.score - b.miss > a.score - a.miss) {
+                          return 1
+                        }
+                        if (b.score - b.miss < a.score - a.miss) {
+                          return -1
+                        }
+                        return b.id - a.id
+                      })
+                      .map(item => {
+                        const team = teams[item.id - 1]
+                        return (
+                          <tr key={item.id}>
+                            <td>{team.emojiString} {localeCountries[team.name]}</td>
+                            <td>{item.matches}</td>
+                            <td>{item.score} - {item.miss}</td>
+                            <td>{item.points}</td>
+                          </tr>
+                        )
+                      })}
+                  </tbody>
+                </table>
+              )
+            })}
+          </section>
           <section>
             {matches.map((item) => {
               const now = new Date()
@@ -79,6 +151,15 @@ export default class WorldCupPage extends React.Component {
         </article>
       </Layout>
     )
+  }
+
+  getPoints = (firstScore, secondScore) => {
+    if (firstScore > secondScore) {
+      return 3
+    } else if (firstScore === secondScore) {
+      return 1
+    }
+    return 0
   }
 }
 
