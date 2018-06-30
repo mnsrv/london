@@ -61,7 +61,7 @@ export default class WorldCupPage extends React.Component {
   render() {
     const { groups, knockout, stadiums, teams } = this.props
 
-    const KnockoutMatch = ({ match }) => {
+    const KnockoutMatch = ({ match, semi = false, final = false, reverse = false }) => {
       const homeTeam = teams[match.home_team - 1] || {}
       const awayTeam = teams[match.away_team - 1] || {}
       const now = new Date()
@@ -74,14 +74,17 @@ export default class WorldCupPage extends React.Component {
       const homeScore = nowPlaying ? match.home_result || '0' : match.home_result || '\u2007'
       const awayScore = nowPlaying ? match.away_result || '0' : match.away_result || '\u2007'
       const className = classNames('knockout', {
+        'knockout_final': final,
+        'knockout_semi': semi,
+        'reverse': reverse,
         'nowPlaying': nowPlaying,
         'finished': match.finished
       })
-      const homeTeamClassName = classNames('knockout__team', {
+      const homeTeamClassName = classNames('knockout__team', 'knockout__team_home', {
         'winner': match.finished && match.winner === match.home_team,
         'loser': match.finished && match.winner === match.away_team
       })
-      const awayTeamClassName = classNames('knockout__team', {
+      const awayTeamClassName = classNames('knockout__team', 'knockout__team_away', {
         'winner': match.finished && match.winner === match.away_team,
         'loser': match.finished && match.winner === match.home_team
       })
@@ -96,32 +99,6 @@ export default class WorldCupPage extends React.Component {
           <div className={awayTeamClassName}>
             <div className="knockout__team-name">{awayTeam.emojiString} {localeCountries[awayTeam.name]}</div>
             <div className="knockout__team-score">{awayScore}</div>
-          </div>
-        </div>
-      )
-    }
-    const FinalMatch = ({ match, semi = false }) => {
-      const className = `knockout knockout_final ${semi ? 'knockout_semi' : ''}`
-      const homeTeam = teams[match.home_team - 1] || {}
-      const awayTeam = teams[match.away_team - 1] || {}
-      const now = new Date()
-      const date = new Date(match.date)
-      const nowPlaying = now.getTime() - date.getTime() > 0 && !match.finished
-      const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
-      const time = nowPlaying ? 'Идёт сейчас.' : `${dateString} ${date.getHours()}:${getFullMinutes(date)}`
-      const stadium = stadiums[match.stadium - 1]
-      const place = stadium.city === 'Moscow' ? `${localeCities[stadium.city]}. ${localeStadiums[stadium.name]}` : `${localeCities[stadium.city]}`
-
-      return (
-        <div className={className}>
-          <div className="knockout__info">{time}<br />{place}</div>
-          <div className="knockout__team">
-            <div className="knockout__team-name">{homeTeam.emojiString} {localeCountries[homeTeam.name]}</div>
-            <div className="knockout__team-score">{match.home_result || '\u2007'}</div>
-          </div>
-          <div className="knockout__team">
-            <div className="knockout__team-score">{match.away_result || '\u2007'}</div>
-            <div className="knockout__team-name">{awayTeam.emojiString} {localeCountries[awayTeam.name]}</div>
           </div>
         </div>
       )
@@ -157,17 +134,17 @@ export default class WorldCupPage extends React.Component {
                 {firstRound4Matches.map(item => <KnockoutMatch key={item.name} match={item} />)}
               </div>
               <div className="knockout-column">
-                {knockout.round_2.matches.map(item => <FinalMatch key={item.name} match={item} />)}
-                {knockout.round_2_loser.matches.map(item => <FinalMatch semi key={item.name} match={item} />)}
+                {knockout.round_2.matches.map(item => <KnockoutMatch key={item.name} match={item} final />)}
+                {knockout.round_2_loser.matches.map(item => <KnockoutMatch key={item.name} match={item} semi />)}
               </div>
               <div className="knockout-column">
-                {secondRound4Matches.map(item => <KnockoutMatch key={item.name} match={item} />)}
+                {secondRound4Matches.map(item => <KnockoutMatch key={item.name} match={item} reverse />)}
               </div>
               <div className="knockout-column">
-                {secondRound8Matches.map(item => <KnockoutMatch key={item.name} match={item} />)}
+                {secondRound8Matches.map(item => <KnockoutMatch key={item.name} match={item} reverse />)}
               </div>
               <div className="knockout-column">
-                {secondRound16Matches.map(item => <KnockoutMatch key={item.name} match={item} />)}
+                {secondRound16Matches.map(item => <KnockoutMatch key={item.name} match={item} reverse />)}
               </div>
             </div>
           </section>

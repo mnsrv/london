@@ -454,12 +454,18 @@ noscript{
 .knockout.finished {
     border-color: lightgray;
 }
-.knockout_final {
+.knockout_final,
+.knockout_semi {
     display: flex;
 }
-.knockout_final .knockout__team {
+.knockout_final .knockout__team,
+.knockout_semi .knockout__team {
     border-bottom: 0;
     border-right: 1px solid lightgrey;
+}
+.knockout_final .knockout__team.knockout__team_away,
+.knockout_semi .knockout__team.knockout__team_away {
+    flex-direction: row-reverse;
 }
 .knockout_semi {
     position: absolute;
@@ -483,20 +489,30 @@ noscript{
     border-bottom: none;
     border-right: none;
 }
+.knockout.reverse .knockout__team {
+    flex-direction: row-reverse;
+}
 .knockout__team.loser .knockout__team-name {
     color: lightgray;
 }
 .knockout__team-name {
-    min-width: 8em;
+    flex: 1;
+    min-width: 7em;
     padding: .35em .75em;
     white-space: nowrap;
 }
 .knockout__team-score {
     padding: .35em .75em;
 }
-.knockout__team-score:first-child {
-    border-right: 1px solid lightgray;
-}
 .knockout__team-score:last-child {
     border-left: 1px solid lightgray;
+}
+.knockout_final .knockout__team.knockout__team_away .knockout__team-score:last-child,
+.knockout_semi .knockout__team.knockout__team_away .knockout__team-score:last-child {
+    border-left: none;
+    border-right: 1px solid lightgray;
+}
+.knockout.reverse .knockout__team-score:last-child {
+    border-left: none;
+    border-right: 1px solid lightgray;
 }
