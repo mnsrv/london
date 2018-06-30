@@ -427,3 +427,70 @@ noscript{
 .filter.is-selected {
     background-color: rgba(255, 255, 255, 1);
 }
+.knockout-wrapper {
+    display: flex;
+    overflow-x: auto;
+    max-width: 100%;
+}
+.knockout-column {
+    position: relative;
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.knockout-column:last-child {
+    margin-right: 0;
+}
+.knockout {
+    position: relative;
+    border: 1px solid gray;
+    font-size: .7em;
+    margin-top: 4em;
+}
+.knockout.nowPlaying {
+    border-color: rgb(255, 40, 0);
+}
+.knockout_final {
+    display: flex;
+}
+.knockout_final .knockout__team {
+    border-bottom: 0;
+    border-right: 1px solid lightgrey;
+}
+.knockout_semi {
+    position: absolute;
+    bottom: 0;
+}
+.knockout__info {
+    position: absolute;
+    top: -3.5em;
+    font-size: 0.8em;
+    color: #aaa;
+}
+.nowPlaying .knockout__time {
+    color: rgb(255, 40, 0);
+}
+.knockout__team {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+}
+.knockout__team:last-child {
+    border-bottom: none;
+    border-right: none;
+}
+.knockout__team-name {
+    min-width: 8em;
+    padding: .35em .75em;
+    white-space: nowrap;
+}
+.knockout__team-score {
+    padding: .35em .75em;
+}
+.knockout__team-score:first-child {
+    border-right: 1px solid lightgray;
+}
+.knockout__team-score:last-child {
+    border-left: 1px solid lightgray;
+}
