@@ -70,7 +70,7 @@ export default class WorldCupPage extends React.Component {
       const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
       const time = nowPlaying ? 'Идёт сейчас.' : `${dateString} ${date.getHours()}:${getFullMinutes(date)}`
       const stadium = stadiums[match.stadium - 1]
-      const place = stadium.city === 'Moscow' ? `${localeCities[stadium.city]}. ${localeStadiums[stadium.name]}` : `${localeCities[stadium.city]}`
+      const place = localeCities[stadium.city]
       const homeScore = nowPlaying ? match.home_result || '0' : match.home_result || '\u2007'
       const awayScore = nowPlaying ? match.away_result || '0' : match.away_result || '\u2007'
       const className = classNames('knockout', {
