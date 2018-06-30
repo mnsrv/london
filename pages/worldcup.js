@@ -1,6 +1,7 @@
 import React from 'react'
 import fetch from 'isomorphic-unfetch'
 import classNames from 'classnames'
+import { withRouter } from 'next/router'
 
 import ActiveLink from '../components/ActiveLink'
 import Layout from '../components/Layout'
@@ -50,7 +51,7 @@ export const getMatches = (groups) => {
   return Object.entries(matchesByDate)
 }
 
-export default class WorldCupPage extends React.Component {
+class WorldCupPage extends React.Component {
   static async getInitialProps() {
     const { groups, knockout, stadiums, teams } = await getWorldCupData()
     const groupMatches = getMatches(groups)
@@ -60,20 +61,24 @@ export default class WorldCupPage extends React.Component {
   }
 
   render() {
-    const { url } = this.props
-    const { stage = 'playoff' } = url.query
+    const { router } = this.props
+    const { stage = '' } = router.query
+    if (stage === '') {
+      router.replace('/worldcup?stage=playoff')
+    }
 
     return (
       <Layout>
         <article>
           <section>
-            <nav style={{ marginTop: 0 }}>
+            <nav style={{ marginTop: 0, marginBottom: '1em' }}>
               <ul>
                 <li><ActiveLink href="/worldcup?stage=playoff">Плей-офф</ActiveLink></li>
                 <li><ActiveLink href="/worldcup?stage=group">Группа</ActiveLink></li>
               </ul>
             </nav>
-            {stage === 'playoff' ? this.renderKnockoutBracket() : this.renderGroupTable()}
+            {stage === 'playoff' && this.renderKnockoutBracket()}
+            {stage === 'group' && this.renderGroupTable()}
           </section>
         </article>
       </Layout>
@@ -317,3 +322,5 @@ export const getWorldCupData = async function() {
 
   return data
 }
+
+export default withRouter(WorldCupPage)

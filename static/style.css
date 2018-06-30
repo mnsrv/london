@@ -431,7 +431,6 @@ noscript{
     display: flex;
     overflow-x: auto;
     max-width: 100%;
-    padding-bottom: 1em;
 }
 .knockout-column {
     position: relative;
@@ -447,7 +446,8 @@ noscript{
     position: relative;
     border: 1px solid gray;
     font-size: .7em;
-    margin-top: 5em;
+    margin-top: 3em;
+    margin-bottom: 2em;
 }
 .knockout.nowPlaying {
     border-color: rgb(255, 40, 0);
