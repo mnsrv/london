@@ -431,6 +431,7 @@ noscript{
     display: flex;
     overflow-x: auto;
     max-width: 100%;
+    padding-bottom: 1em;
 }
 .knockout-column {
     position: relative;

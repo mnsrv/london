@@ -2,6 +2,7 @@ import React from 'react'
 import fetch from 'isomorphic-unfetch'
 import classNames from 'classnames'
 
+import ActiveLink from '../components/ActiveLink'
 import Layout from '../components/Layout'
 import { localeMonthsGenitive, getFullMinutes } from '../utils/date'
 import { localeCountries, localeCities, localeStadiums } from '../utils/worldcup'
@@ -59,50 +60,29 @@ export default class WorldCupPage extends React.Component {
   }
 
   render() {
-    const { groups, knockout, stadiums, teams } = this.props
+    const { url } = this.props
+    const { stage = 'playoff' } = url.query
 
-    const KnockoutMatch = ({ match, semi = false, final = false, reverse = false }) => {
-      const homeTeam = teams[match.home_team - 1] || {}
-      const awayTeam = teams[match.away_team - 1] || {}
-      const now = new Date()
-      const date = new Date(match.date)
-      const nowPlaying = now.getTime() - date.getTime() > 0 && !match.finished
-      const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
-      const time = nowPlaying ? 'Идёт сейчас.' : `${dateString} ${date.getHours()}:${getFullMinutes(date)}`
-      const stadium = stadiums[match.stadium - 1]
-      const place = localeCities[stadium.city]
-      const homeScore = nowPlaying ? match.home_result || '0' : match.home_result || '\u2007'
-      const awayScore = nowPlaying ? match.away_result || '0' : match.away_result || '\u2007'
-      const className = classNames('knockout', {
-        'knockout_final': final,
-        'knockout_semi': semi,
-        'reverse': reverse,
-        'nowPlaying': nowPlaying,
-        'finished': match.finished
-      })
-      const homeTeamClassName = classNames('knockout__team', 'knockout__team_home', {
-        'winner': match.finished && match.winner === match.home_team,
-        'loser': match.finished && match.winner === match.away_team
-      })
-      const awayTeamClassName = classNames('knockout__team', 'knockout__team_away', {
-        'winner': match.finished && match.winner === match.away_team,
-        'loser': match.finished && match.winner === match.home_team
-      })
+    return (
+      <Layout>
+        <article>
+          <section>
+            <nav style={{ marginTop: 0 }}>
+              <ul>
+                <li><ActiveLink href="/worldcup?stage=playoff">Плей-офф</ActiveLink></li>
+                <li><ActiveLink href="/worldcup?stage=group">Группа</ActiveLink></li>
+              </ul>
+            </nav>
+            {stage === 'playoff' ? this.renderKnockoutBracket() : this.renderGroupTable()}
+          </section>
+        </article>
+      </Layout>
+    )
+  }
 
-      return (
-        <div className={className}>
-          <div className="knockout__info"><span className="knockout__time">{time}</span><br />{place}</div>
-          <div className={homeTeamClassName}>
-            <div className="knockout__team-name">{homeTeam.emojiString} {localeCountries[homeTeam.name]}</div>
-            <div className="knockout__team-score">{homeScore}</div>
-          </div>
-          <div className={awayTeamClassName}>
-            <div className="knockout__team-name">{awayTeam.emojiString} {localeCountries[awayTeam.name]}</div>
-            <div className="knockout__team-score">{awayScore}</div>
-          </div>
-        </div>
-      )
-    }
+  renderKnockoutBracket = () => {
+    const { groups, knockout } = this.props
+
     const firstHalf = Object.entries(groups).filter((_, index) => index % 2 === 0).map(item => item[1].winner)
     const secondHalf = Object.entries(groups).filter((_, index) => index % 2 === 1).map(item => item[1].winner)
     const round16Matches = knockout.round_16.matches
@@ -120,36 +100,75 @@ export default class WorldCupPage extends React.Component {
     const secondRound4Matches = round4Matches.slice(round4MatchesHalf, round4Matches.length)
 
     return (
-      <Layout>
-        <article>
-          <section>
-            <div className="knockout-wrapper">
-              <div className="knockout-column">
-                {firstRound16Matches.map(item => <KnockoutMatch key={item.name} match={item} />)}
-              </div>
-              <div className="knockout-column">
-                {firstRound8Matches.map(item => <KnockoutMatch key={item.name} match={item} />)}
-              </div>
-              <div className="knockout-column">
-                {firstRound4Matches.map(item => <KnockoutMatch key={item.name} match={item} />)}
-              </div>
-              <div className="knockout-column">
-                {knockout.round_2.matches.map(item => <KnockoutMatch key={item.name} match={item} final />)}
-                {knockout.round_2_loser.matches.map(item => <KnockoutMatch key={item.name} match={item} semi />)}
-              </div>
-              <div className="knockout-column">
-                {secondRound4Matches.map(item => <KnockoutMatch key={item.name} match={item} reverse />)}
-              </div>
-              <div className="knockout-column">
-                {secondRound8Matches.map(item => <KnockoutMatch key={item.name} match={item} reverse />)}
-              </div>
-              <div className="knockout-column">
-                {secondRound16Matches.map(item => <KnockoutMatch key={item.name} match={item} reverse />)}
-              </div>
-            </div>
-          </section>
-        </article>
-      </Layout>
+      <div className="knockout-wrapper">
+        <div className="knockout-column">
+          {firstRound16Matches.map(item => this.renderKnockoutMatch({ match: item }))}
+        </div>
+        <div className="knockout-column">
+          {firstRound8Matches.map(item => this.renderKnockoutMatch({ match: item }))}
+        </div>
+        <div className="knockout-column">
+          {firstRound4Matches.map(item => this.renderKnockoutMatch({ match: item }))}
+        </div>
+        <div className="knockout-column">
+          {knockout.round_2.matches.map(item => this.renderKnockoutMatch({ match: item, final: true }))}
+          {knockout.round_2_loser.matches.map(item => this.renderKnockoutMatch({ match: item, semi: true }))}
+        </div>
+        <div className="knockout-column">
+          {secondRound4Matches.map(item => this.renderKnockoutMatch({ match: item, reverse: true }))}
+        </div>
+        <div className="knockout-column">
+          {secondRound8Matches.map(item => this.renderKnockoutMatch({ match: item, reverse: true }))}
+        </div>
+        <div className="knockout-column">
+          {secondRound16Matches.map(item => this.renderKnockoutMatch({ match: item, reverse: true }))}
+        </div>
+      </div>
+    )
+  }
+
+  renderKnockoutMatch = ({ match, semi = false, final = false, reverse = false }) => {
+    const { stadiums, teams } = this.props
+
+    const homeTeam = teams[match.home_team - 1] || {}
+    const awayTeam = teams[match.away_team - 1] || {}
+    const now = new Date()
+    const date = new Date(match.date)
+    const nowPlaying = now.getTime() - date.getTime() > 0 && !match.finished
+    const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
+    const time = nowPlaying ? 'Идёт сейчас.' : `${dateString} ${date.getHours()}:${getFullMinutes(date)}`
+    const stadium = stadiums[match.stadium - 1]
+    const place = localeCities[stadium.city]
+    const homeScore = nowPlaying ? match.home_result || '0' : match.home_result || '\u2007'
+    const awayScore = nowPlaying ? match.away_result || '0' : match.away_result || '\u2007'
+    const className = classNames('knockout', {
+      'knockout_final': final,
+      'knockout_semi': semi,
+      'reverse': reverse,
+      'nowPlaying': nowPlaying,
+      'finished': match.finished
+    })
+    const homeTeamClassName = classNames('knockout__team', 'knockout__team_home', {
+      'winner': match.finished && match.winner === match.home_team,
+      'loser': match.finished && match.winner === match.away_team
+    })
+    const awayTeamClassName = classNames('knockout__team', 'knockout__team_away', {
+      'winner': match.finished && match.winner === match.away_team,
+      'loser': match.finished && match.winner === match.home_team
+    })
+
+    return (
+      <div key={match.name} className={className}>
+        <div className="knockout__info"><span className="knockout__time">{time}</span><br />{place}</div>
+        <div className={homeTeamClassName}>
+          <div className="knockout__team-name">{homeTeam.emojiString} {localeCountries[homeTeam.name]}</div>
+          <div className="knockout__team-score">{homeScore}</div>
+        </div>
+        <div className={awayTeamClassName}>
+          <div className="knockout__team-name">{awayTeam.emojiString} {localeCountries[awayTeam.name]}</div>
+          <div className="knockout__team-score">{awayScore}</div>
+        </div>
+      </div>
     )
   }
 

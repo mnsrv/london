@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 
 const ActiveLink = ({ router, href, children }) => {
-  const active = router.pathname === href
+  const active = router.pathname === href || router.asPath === href
   if (active) {
     return children
   }
