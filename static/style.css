@@ -451,6 +451,9 @@ noscript{
 .knockout.nowPlaying {
     border-color: rgb(255, 40, 0);
 }
+.knockout.finished {
+    border-color: lightgray;
+}
 .knockout_final {
     display: flex;
 }
@@ -479,6 +482,9 @@ noscript{
 .knockout__team:last-child {
     border-bottom: none;
     border-right: none;
+}
+.knockout__team.loser .knockout__team-name {
+    color: lightgray;
 }
 .knockout__team-name {
     min-width: 8em;

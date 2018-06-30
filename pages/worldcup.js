@@ -1,5 +1,6 @@
 import React from 'react'
-import fetch from "isomorphic-unfetch"
+import fetch from 'isomorphic-unfetch'
+import classNames from 'classnames'
 
 import Layout from '../components/Layout'
 import { localeMonthsGenitive, getFullMinutes } from '../utils/date'
@@ -66,23 +67,33 @@ export default class WorldCupPage extends React.Component {
       const now = new Date()
       const date = new Date(match.date)
       const nowPlaying = now.getTime() - date.getTime() > 0 && !match.finished
-      const color = nowPlaying ? 'rgb(255,40,0)' : '#aaa'
       const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
       const time = nowPlaying ? 'Идёт сейчас.' : `${dateString} ${date.getHours()}:${getFullMinutes(date)}`
       const stadium = stadiums[match.stadium - 1]
       const place = stadium.city === 'Moscow' ? `${localeCities[stadium.city]}. ${localeStadiums[stadium.name]}` : `${localeCities[stadium.city]}`
       const homeScore = nowPlaying ? match.home_result || '0' : match.home_result || '\u2007'
       const awayScore = nowPlaying ? match.away_result || '0' : match.away_result || '\u2007'
-      const className = nowPlaying ? 'knockout nowPlaying' : 'knockout'
+      const className = classNames('knockout', {
+        'nowPlaying': nowPlaying,
+        'finished': match.finished
+      })
+      const homeTeamClassName = classNames('knockout__team', {
+        'winner': match.finished && match.winner === match.home_team,
+        'loser': match.finished && match.winner === match.away_team
+      })
+      const awayTeamClassName = classNames('knockout__team', {
+        'winner': match.finished && match.winner === match.away_team,
+        'loser': match.finished && match.winner === match.home_team
+      })
 
       return (
         <div className={className}>
           <div className="knockout__info"><span className="knockout__time">{time}</span><br />{place}</div>
-          <div className="knockout__team">
+          <div className={homeTeamClassName}>
             <div className="knockout__team-name">{homeTeam.emojiString} {localeCountries[homeTeam.name]}</div>
             <div className="knockout__team-score">{homeScore}</div>
           </div>
-          <div className="knockout__team">
+          <div className={awayTeamClassName}>
             <div className="knockout__team-name">{awayTeam.emojiString} {localeCountries[awayTeam.name]}</div>
             <div className="knockout__team-score">{awayScore}</div>
           </div>
