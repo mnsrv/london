@@ -267,7 +267,6 @@ table td:first-child, table th:first-child{
     background-size:2px 100%;
     background-repeat:no-repeat; }
 table td:last-child, table th:last-child{
-    padding-right:0;
     border-right:0;
     background-image:-webkit-linear-gradient(right, white 50%, rgba(255, 255, 255, 0) 100%);
     background-image:linear-gradient(to left, white 50%, rgba(255, 255, 255, 0) 100%);
