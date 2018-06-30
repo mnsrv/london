@@ -48,15 +48,16 @@ export const getMatches = (groups) => {
 
 export default class WorldCupPage extends React.Component {
   static async getInitialProps() {
-    const { groups, stadiums, teams } = await getWorldCupData()
-    const matches = getMatches(groups)
+    const { groups, knockout, stadiums, teams } = await getWorldCupData()
+    const groupMatches = getMatches(groups)
+    const knockoutMatches = getMatches(knockout)
 
-    return { groups, matches, stadiums, teams }
+    return { groups, groupMatches, knockoutMatches, stadiums, teams }
   }
 
   render() {
-    const { groups, matches, stadiums, teams } = this.props
-    const remainingMatches = matches.filter(item => new Date().getTime() <= Number(item[0]))
+    const { groups, groupMatches, stadiums, teams } = this.props
+    const remainingMatches = groupMatches.filter(item => new Date().getTime() <= Number(item[0]))
 
     return (
       <Layout>

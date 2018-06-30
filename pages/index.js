@@ -50,8 +50,10 @@ const getWeather = async function() {
 
 Index.getInitialProps = async function() {
   const temperature = await getWeather()
-  const { groups, stadiums, teams } = await getWorldCupData()
-  const matches = getMatches(groups)
+  const { groups, knockout, stadiums, teams } = await getWorldCupData()
+  const groupMatches = getMatches(groups)
+  const knockoutMatches = getMatches(knockout)
+  const matches = groupMatches.concat(knockoutMatches)
 
   return {
     temperature,
