@@ -26,8 +26,8 @@ export const Match = ({ match, teams, stadiums }) => {
   const time = nowPlaying ? 'Идёт сейчас.' : `${date.getHours()}:${getFullMinutes(date)}`
   const color = nowPlaying ? 'rgb(255,40,0)' : '#aaa'
   const place = stadium.city === 'Moscow' ? `${localeCities[stadium.city]}. ${localeStadiums[stadium.name]}` : `${localeCities[stadium.city]}`
-  const homeScore = nowPlaying ? match.home_result || '0' : match.home_result || '\u2007'
-  const awayScore = nowPlaying ? match.away_result || '0' : match.away_result || '\u2007'
+  const homeScore = nowPlaying ? match.home_result || '0' : match.home_result || ''
+  const awayScore = nowPlaying ? match.away_result || '0' : match.away_result || ''
 
   const timePlaceString = match.finished ? place : `${time} ${place}`
   const string = `${localeCountries[homeTeam.name]} ${homeTeam.emojiString} ${homeScore} : ${awayScore} ${awayTeam.emojiString} ${localeCountries[awayTeam.name]}`
