@@ -8,6 +8,14 @@ import Layout from '../components/Layout'
 import { localeMonthsGenitive, getFullMinutes } from '../utils/date'
 import { localeCountries, localeCities, localeStadiums } from '../utils/worldcup'
 
+const toMatrix = (arr, width) =>
+  arr.reduce(
+    (rows, key, index) => (
+      index % width === 0
+        ? rows.push([key])
+        : rows[rows.length - 1].push(key)) && rows
+    , [])
+
 export const Match = ({ match, teams, stadiums }) => {
   const date = new Date(match.date)
   const now = new Date()
@@ -107,10 +115,18 @@ class WorldCupPage extends React.Component {
     return (
       <div className="knockout-wrapper">
         <div className="knockout-column">
-          {firstRound16Matches.map(item => this.renderKnockoutMatch({ match: item }))}
+          {toMatrix(firstRound16Matches, 2).map(item => (
+            <div key={item[0].name} className="knockout-pair">
+              {item.map(match => this.renderKnockoutMatch({ match }))}
+            </div>
+          ))}
         </div>
         <div className="knockout-column">
-          {firstRound8Matches.map(item => this.renderKnockoutMatch({ match: item }))}
+          {toMatrix(firstRound8Matches, 2).map(item => (
+            <div key={item[0].name} className="knockout-pair">
+              {item.map(match => this.renderKnockoutMatch({ match }))}
+            </div>
+          ))}
         </div>
         <div className="knockout-column">
           {firstRound4Matches.map(item => this.renderKnockoutMatch({ match: item }))}
@@ -123,16 +139,24 @@ class WorldCupPage extends React.Component {
           {secondRound4Matches.map(item => this.renderKnockoutMatch({ match: item, reverse: true }))}
         </div>
         <div className="knockout-column">
-          {secondRound8Matches.map(item => this.renderKnockoutMatch({ match: item, reverse: true }))}
+          {toMatrix(secondRound8Matches, 2).map(item => (
+            <div key={item[0].name} className="knockout-pair reverse">
+              {item.map(match => this.renderKnockoutMatch({ match, reverse: true }))}
+            </div>
+          ))}
         </div>
         <div className="knockout-column">
-          {secondRound16Matches.map(item => this.renderKnockoutMatch({ match: item, reverse: true }))}
+          {toMatrix(secondRound16Matches, 2).map(item => (
+            <div key={item[0].name} className="knockout-pair reverse">
+              {item.map(match => this.renderKnockoutMatch({ match, reverse: true }))}
+            </div>
+          ))}
         </div>
       </div>
     )
   }
 
-  renderKnockoutMatch = ({ match, semi = false, final = false, reverse = false }) => {
+  renderKnockoutMatch = ({ match, index = 0, semi = false, final = false, reverse = false }) => {
     const { stadiums, teams } = this.props
 
     const homeTeam = teams[match.home_team - 1] || {}
@@ -166,11 +190,11 @@ class WorldCupPage extends React.Component {
       <div key={match.name} className={className}>
         <div className="knockout__info"><span className="knockout__time">{time}</span><br />{place}</div>
         <div className={homeTeamClassName}>
-          <div className="knockout__team-name">{homeTeam.emojiString} {localeCountries[homeTeam.name]}</div>
+          <div className="knockout__team-name">{`${homeTeam.emojiString || ''} ${localeCountries[homeTeam.name] || ''}`}</div>
           <div className="knockout__team-score">{homeScore}</div>
         </div>
         <div className={awayTeamClassName}>
-          <div className="knockout__team-name">{awayTeam.emojiString} {localeCountries[awayTeam.name]}</div>
+          <div className="knockout__team-name">{`${awayTeam.emojiString || ''} ${localeCountries[awayTeam.name] || ''}`}</div>
           <div className="knockout__team-score">{awayScore}</div>
         </div>
       </div>
