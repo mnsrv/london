@@ -6,6 +6,46 @@ import Calendar from '../components/Calendar'
 import { localeMonthsGenitive } from '../utils/date'
 import { Match, getWorldCupData, getMatches } from './worldcup'
 
+const IndexWorldCup = ({ matches, teams, stadiums }) => {
+  const todayMatches = matches.filter((item) => {
+    const now = new Date()
+    const date = new Date(Number(item[0]))
+    const nowString = `${now.getDate()} ${localeMonthsGenitive[now.getMonth()]}`
+    const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
+    return nowString === dateString
+  })
+  if (todayMatches.length === 0) {
+    const now = new Date()
+    const nextMatchDay = matches.find(item => Number(item[0]) > now.getTime())
+    const nextMatch = nextMatchDay[1][0]
+    const nextMatchDate = new Date(nextMatch.date)
+    const nextMatchDateString = `${nextMatchDate.getDate()} ${localeMonthsGenitive[nextMatchDate.getMonth()]}`
+    return (
+      <div>
+        <h3>Чемпионат мира</h3>
+        <p>Следующий матч {nextMatchDateString}</p>
+      </div>
+    )
+  }
+  return (
+    <div>
+      <h3>Чемпионат мира</h3>
+      {todayMatches.map((item) => {
+        const now = new Date()
+        const date = new Date(Number(item[0]))
+        const nowString = `${now.getDate()} ${localeMonthsGenitive[now.getMonth()]}`
+        const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
+
+        return (
+          <div key={item[0]}>
+            {item[1].map(match => <Match key={match.name} match={match} teams={teams} stadiums={stadiums} />)}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 const Index = (props) => {
   return (
     <Layout>
@@ -14,23 +54,7 @@ const Index = (props) => {
           <Calendar />
         </section>
         <section>
-          <div>
-            <h3>Чемпионат мира</h3>
-            {props.matches.map((item) => {
-              const now = new Date()
-              const date = new Date(Number(item[0]))
-              const nowString = `${now.getDate()} ${localeMonthsGenitive[now.getMonth()]}`
-              const dateString = `${date.getDate()} ${localeMonthsGenitive[date.getMonth()]}`
-              if (nowString !== dateString) {
-                return null
-              }
-              return (
-                <div key={item[0]}>
-                  {item[1].map(match => <Match key={match.name} match={match} teams={props.teams} stadiums={props.stadiums} />)}
-                </div>
-              )
-            })}
-          </div>
+          <IndexWorldCup matches={props.matches} teams={props.teams} stadiums={props.stadiums} />
         </section>
 
         <section>
