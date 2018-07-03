@@ -12,11 +12,6 @@ const Header = () => (
           </ActiveLink>
         </li>
         <li>
-          <ActiveLink href="/movies">
-            Фильмы
-          </ActiveLink>
-        </li>
-        <li>
           <ActiveLink href="/worldcup">
             Чемпионат мира
           </ActiveLink>
