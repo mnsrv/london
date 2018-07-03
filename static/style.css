@@ -522,7 +522,7 @@ noscript{
     right: calc(-1rem - 2px);
 }
 .knockout.reverse:after {
-    left: calc(-1rem - 1px);
+    left: calc(-1rem - 2px);
 }
 .knockout.knockout_final:after {
     top: 1rem;
