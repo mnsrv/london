@@ -28,8 +28,8 @@ export const Match = ({ match, teams, stadiums }) => {
   const place = stadium.city === 'Moscow' ? `${localeCities[stadium.city]}. ${localeStadiums[stadium.name]}` : `${localeCities[stadium.city]}`
   const homeResult = match.home_penalty === null ? match.home_result : `${match.home_result} (${match.home_penalty})`
   const awayResult = match.away_penalty === null ? match.away_result : `(${match.away_penalty}) ${match.away_result}`
-  const homeScore = nowPlaying ? homeResult || '0' : homeResult || ''
-  const awayScore = nowPlaying ? awayResult || '0' : awayResult || ''
+  const homeScore = nowPlaying || match.finished ? homeResult || '0' : homeResult || ''
+  const awayScore = nowPlaying || match.finished ? awayResult || '0' : awayResult || ''
 
   const timePlaceString = match.finished ? place : `${time} ${place}`
   const string = `${localeCountries[homeTeam.name]} ${homeTeam.emojiString} ${homeScore} : ${awayScore} ${awayTeam.emojiString} ${localeCountries[awayTeam.name]}`
@@ -172,8 +172,8 @@ class WorldCupPage extends React.Component {
     const place = localeCities[stadium.city]
     const homeResult = match.home_penalty === null ? match.home_result : `${match.home_result} (${match.home_penalty})`
     const awayResult = match.away_penalty === null ? match.away_result : `${match.away_result} (${match.away_penalty})`
-    const homeScore = nowPlaying ? homeResult || '0' : homeResult || '\u2007'
-    const awayScore = nowPlaying ? awayResult || '0' : awayResult || '\u2007'
+    const homeScore = nowPlaying || match.finished ? homeResult || '0' : homeResult || '\u2007'
+    const awayScore = nowPlaying || match.finished ? awayResult || '0' : awayResult || '\u2007'
     const className = classNames('knockout', {
       'knockout_final': final,
       'knockout_semi': semi,
