@@ -34,14 +34,11 @@ const getWeather = async function() {
 
 Index.getInitialProps = async function() {
   const temperature = await getWeather()
-  const movies = await getMovies()
-  const { groups, stadiums, teams } = await getWorldCupData()
-  const matches = getMatches(groups)
+  const movies = await getMovies()  
 
   return {
     movies: movies.sort((a, b) => new Date(b.watched_date) - new Date(a.watched_date)),
-    temperature,
-    groups, matches, stadiums, teams
+    temperature
   }
 }
 
