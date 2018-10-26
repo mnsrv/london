@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-unfetch'
 
-import { getMovies } from './movies'
 import Layout from '../components/Layout'
 import Weather from '../components/Weather'
 import LastMovie from '../components/LastMovie'
@@ -31,13 +30,19 @@ const getWeather = async function() {
 
   return data.temperature
 }
+export const getMovies = async function() {
+  const res = await fetch('https://api.mansurov.me/movies')
+  const movies = await res.json()
+
+  return movies.sort((a, b) => new Date(b.watched_date) - new Date(a.watched_date))
+}
 
 Index.getInitialProps = async function() {
   const temperature = await getWeather()
   const movies = await getMovies()  
 
   return {
-    movies: movies.sort((a, b) => new Date(b.watched_date) - new Date(a.watched_date)),
+    movies,
     temperature
   }
 }
