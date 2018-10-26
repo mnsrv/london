@@ -11,7 +11,7 @@ const LastMovie = ({ movies }) => {
 
   return (
     <div>
-      <h3>Три последних фильма</h3>
+      <h3>Последние просмотренные фильмы</h3>
       {lastMovies.map(movie => {
         const movieDate = new Date(movie.watched_date)
         const day = movieDate.getDate()
