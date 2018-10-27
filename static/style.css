@@ -2,12 +2,14 @@
   box-sizing: border-box;
 }
 html{
-    font-family: 'Anonymous Pro', monospace;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     font-size:100%;
     line-height:1.6;
-    background:white;
-    color:#000;
-    -webkit-overflow-scrolling:touch; }
+    background: #eef2f5;
+    color:black;
+    -webkit-overflow-scrolling:touch;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
 
 body{
     margin:0;
@@ -24,8 +26,9 @@ body footer,
 body article{
     position:relative;
     margin:0 auto; }
-body header {
-    background-color: white; }
+main {
+    padding-bottom: 2rem;
+}
 body header h1{
     margin:0;
     font-size:1.5em; }

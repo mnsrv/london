@@ -6,7 +6,6 @@ const Layout = (props) => [
   <Head key="head">
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <title>Саша Мансуров</title>
-    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro:400,700&amp;subset=cyrillic" rel="stylesheet" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112751787-1"></script>
     <script dangerouslySetInnerHTML={{__html: `
       window.dataLayer = window.dataLayer || [];

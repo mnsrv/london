@@ -3,6 +3,8 @@ import { getWeeks, localeMonths } from '../utils/date'
 const Row = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>
 const Cell = ({ children, today = false }) => {
   const style = {
+    fontFamily: 'monospace',
+    fontSize: '1.5rem',
     flex: 1,
     textAlign: 'right',
     padding: '0 5px',

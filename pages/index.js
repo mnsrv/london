@@ -16,7 +16,7 @@ const Index = (props) => {
         <section>
           <Weather temperature={props.temperature} />
         </section>
-        <section>
+        <section style={{ backgroundColor: '#13171b', borderRadius: 20, color: 'white' }}>
           <LastMovie movies={props.movies} />
         </section>
       </article>
