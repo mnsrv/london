@@ -1,7 +1,6 @@
 import Head from 'next/head'
 
 import Header from './Header'
-import '../static/style.css'
 
 const Layout = (props) => [
   <Head key="head">
@@ -15,6 +14,7 @@ const Layout = (props) => [
       gtag('js', new Date());
       gtag('config', 'UA-112751787-1');
     `}}></script>
+    <link rel="stylesheet" href="/static/style.css" />
   </Head>,
   <Header key="header" />,
   <main key="main">{props.children}</main>
