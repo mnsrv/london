@@ -8,7 +8,7 @@ const LastMovie = ({ movies }) => {
   }
 
   return (
-    <div>
+    <div style={{ padding: '1.5em', backgroundColor: '#13171b', borderRadius: 20, color: 'white', boxShadow: '0 2px 4px rgba(19, 23, 27, 0.5)' }}>
       <h3>Кино</h3>
       {movies.map(movie => {
         const poster = movie.poster ? `https://image.tmdb.org/t/p/w92${movie.poster}` : ''

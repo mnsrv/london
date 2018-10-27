@@ -13,7 +13,8 @@ html{
 
 body{
     margin:0;
-    font-size:0.75rem; }
+    font-size:0.75rem;
+    padding: 1rem; }
 @media (min-width: 25rem) {
     body{
         font-size:1rem; } }
@@ -43,11 +44,11 @@ body footer{
     color:#aaa; }
 body header,
 section {
-    padding: 1em; }
+    padding: 0.5rem; }
 @media (min-width: 50rem){
     body header,
     section {
-      padding: 1.5em; } }
+      padding: 1rem; } }
 
 .section_grow {
     flex-grow: 1;

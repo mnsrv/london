@@ -3,20 +3,15 @@ import fetch from 'isomorphic-unfetch'
 import Layout from '../components/Layout'
 import Weather from '../components/Weather'
 import LastMovie from '../components/LastMovie'
-import Calendar from '../components/Calendar'
 
 const Index = (props) => {
   return (
     <Layout>
       <article className="article_flex">
         <section>
-          <Calendar />
+          <Weather temperature={props.temperature} emoji={props.emoji} />
         </section>
-
         <section>
-          <Weather temperature={props.temperature} />
-        </section>
-        <section style={{ backgroundColor: '#13171b', borderRadius: 20, color: 'white' }}>
           <LastMovie movies={props.movies} />
         </section>
       </article>
@@ -28,7 +23,7 @@ const getWeather = async function() {
   const res = await fetch(`https://api.mansurov.me/weather`)
   const data = await res.json()
 
-  return data.temperature
+  return data
 }
 export const getMovies = async function() {
   const res = await fetch('https://api.mansurov.me/movies')
@@ -38,11 +33,12 @@ export const getMovies = async function() {
 }
 
 Index.getInitialProps = async function() {
-  const temperature = await getWeather()
+  const { emoji, temperature } = await getWeather()
   const movies = await getMovies()  
 
   return {
     movies,
+    emoji,
     temperature
   }
 }
