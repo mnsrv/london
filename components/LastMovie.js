@@ -11,12 +11,12 @@ const LastMovie = ({ movies }) => {
     <div style={{ padding: '1.5em', backgroundColor: '#13171b', borderRadius: 20, color: 'white', boxShadow: '0 2px 4px rgba(19, 23, 27, 0.5)' }}>
       <h3>Кино</h3>
       {movies.map(movie => {
-        const poster = movie.poster ? `https://image.tmdb.org/t/p/w92${movie.poster}` : ''
+        const poster = movie.poster ? `https://image.tmdb.org/t/p/w342${movie.poster}` : ''
         const rating = movie.rating / 2
 
         return (
           <div key={movie.id.toString()} style={{ display: 'flex', marginTop: '1em' }}>
-            {poster && <img src={poster} style={{ borderRadius: 8, marginLeft: 0, marginRight: 20 }} />}
+            {poster && <div style={{ marginRight: 20 }}><img src={poster} style={{ width: 114, borderRadius: 8, margin: 0 }} /></div>}
             <div>
               <div>
                 <span>{movie.title}</span>
