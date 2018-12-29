@@ -1,43 +1,25 @@
-import { getWeeks, localeMonths } from '../utils/date'
-
-const Row = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>
-const Cell = ({ children, today = false }) => {
-  const style = {
-    fontFamily: 'monospace',
-    fontSize: '1.5rem',
-    flex: 1,
-    textAlign: 'right',
-    padding: '0 5px',
-    borderWidth: 5,
-    borderStyle: 'solid',
-    borderColor: today ? 'red' : 'transparent'
-  }
-  return <div style={style}>{children}</div>
-}
-
 const Calendar = () => {
-  const weeks = getWeeks()
   const date = new Date()
-  const today = date.getDate()
-  const month = date.getMonth()
   const year = date.getFullYear()
-  const firstDate = new Date(year, month, 1)
-  const lastDate = new Date(year, month + 1, 0)
-  const daysCount = lastDate.getDate()
-
-  return [
-    <h3 key="title" style={{ textTransform: 'capitalize' }}>{localeMonths[month]}</h3>,
-    <div key="body" style={{ marginTop: -5, marginLeft: -10, marginRight: -10 }}>
-      {weeks.map(({ week, days }) => (
-        <Row key={week.toString()}>
-          {days.map((day, index) => day > 0
-            ? <Cell key={day} today={day === today}>{day}</Cell>
-            : <Cell key={`${(day+index).toString()}-empty`} />
-          )}
-        </Row>
-      ))}
+  const firstDayInMS = (new Date(year, 0, 1)).getTime()
+  const lastDayInMS = (new Date(year + 1, 0, 1)).getTime()
+  const nowInMS = (new Date()).getTime()
+  const progress = Math.floor((nowInMS - firstDayInMS) / (lastDayInMS - firstDayInMS) * 100)
+  return (
+    <div style={{ padding: '1.5em', backgroundColor: 'white', borderRadius: 20, boxShadow: '0 2px 4px rgba(204, 204, 204, 0.5)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h3 style={{ textTransform: 'capitalize' }}>{year}</h3>
+        <h3 style={{ opacity: 0.2 }}>{progress}%</h3>
+      </div>
+      <div>
+        <div style={{ width: 300, backgroundColor: 'black', padding: 5 }}>
+          <div style={{ backgroundColor: 'white' }}>
+            <div style={{ height: 20, width: `${progress}%`, backgroundColor: 'pink' }} />
+          </div>
+        </div>
+      </div>
     </div>
-  ]
+  )
 }
 
 export default Calendar

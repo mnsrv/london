@@ -2,12 +2,16 @@ import fetch from 'isomorphic-unfetch'
 
 import Layout from '../components/Layout'
 import Weather from '../components/Weather'
+import Calendar from '../components/Calendar'
 import LastMovie from '../components/LastMovie'
 
 const Index = (props) => {
   return (
     <Layout>
       <article className="article_flex">
+        <section>
+          <Calendar />
+        </section>
         <section>
           <Weather temperature={props.temperature} emoji={props.emoji} />
         </section>
