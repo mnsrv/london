@@ -7,7 +7,7 @@ export default (props) => {
 
   return (
     <div style={{ padding: '1.5em', backgroundColor: 'white', borderRadius: 20, boxShadow: '0 2px 4px rgba(204, 204, 204, 0.5)' }}>
-      <h3>Якутск {props.emoji}</h3>
+      <h3>Москва {props.emoji}</h3>
       <p style={{ textAlign: 'center', fontSize: '3em', lineHeight: 1 }}>{tempString}</p>
     </div>
   )
